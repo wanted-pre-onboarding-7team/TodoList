@@ -1,16 +1,17 @@
 import { useState } from 'react'
 import styles from './TodoList.module.scss'
-import { CheckIcon } from '../../assets/svgs'
 import { useRecoilState } from 'recoil'
 import { todoListState } from '../../atom/Todolist'
-import useTodoList from '../../hooks/useTodoList'
+import { CheckIcon } from '../../assets/svgs'
+import useDragDrop from '../../hooks/useDragDrop'
 
 function TodoList() {
   const [todoList, setTodoList] = useRecoilState(todoListState)
-  const { handleAddTest } = useTodoList()
-  // const handleAddClick = (e) => {
-  //   console.log('handleAddClick')
-  // }
+  const { handleDragStart, handleDragOver, handleDragEnd, handleOnDrop, grab } = useDragDrop()
+
+  const handleAddClick = (e) => {
+    // console.log('handleAddClick')
+  }
 
   const handleChange = (e) => {
     const { dataset, checked } = e.currentTarget
@@ -33,8 +34,6 @@ function TodoList() {
         ...prev.slice(targetIndex + 1),
       ]
 
-      console.log('newList:', newList)
-
       return newList
     })
   }
@@ -45,8 +44,17 @@ function TodoList() {
         <h1>Hi! this is your assignment.</h1>
         <ul className={styles.tasks}>
           <p className={styles.tasksTitle}>Today&apos;s</p>
-          {todoList.map((todo) => (
-            <li key={`todo-${todo.id}`} className={styles.task}>
+          {todoList.map((todo, index) => (
+            <li
+              key={`todo-${todo.id}`}
+              data-position={index}
+              className={styles.task}
+              draggable='true'
+              onDragStart={handleDragStart}
+              onDragOver={handleDragOver}
+              onDragEnd={handleDragEnd}
+              onDrop={handleOnDrop}
+            >
               <div className={styles.checkboxWrapper}>
                 <input type='checkbox' checked={todo.done} data-id={todo.id} onChange={handleChange} />
                 <CheckIcon />
@@ -55,7 +63,7 @@ function TodoList() {
             </li>
           ))}
         </ul>
-        <button type='button' className={styles.addButton} onClick={handleAddTest} aria-label='Add button' />
+        <button type='button' className={styles.addButton} onClick={handleAddClick} aria-label='Add button' />
       </div>
     </div>
   )
