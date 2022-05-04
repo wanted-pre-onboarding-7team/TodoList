@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import styles from './TodoList.module.scss'
 import { CheckIcon } from '../../assets/svgs'
-import { useRecoilState } from "recoil"
+import { useRecoilState } from 'recoil'
 import { todoListState } from '../../atom/Todolist'
 
 // const INIT_TODO = [
@@ -22,6 +22,7 @@ import { todoListState } from '../../atom/Todolist'
 //   },
 // ]
 
+// test
 function TodoList() {
   // const [todoList, setTodoList] = useState(INIT_TODO)
   const [todoList, setTodoList] = useRecoilState(todoListState)
@@ -34,21 +35,24 @@ function TodoList() {
     const { dataset, checked } = e.currentTarget
     const { id } = dataset
 
-
     setTodoList((prev) => {
       const targetIndex = prev.findIndex((todo) => todo.id === Number(id))
       // const newListTest = [...prev]
-      
+
       // newListTest[targetIndex].done = checked
 
       // console.log("newListTest", newListTest)
-      const newList = [...prev.slice(0,targetIndex), {
-        id:prev[targetIndex].id,
-        title: prev[targetIndex].title,
-        done: checked
-      },...prev.slice(targetIndex+1)]
+      const newList = [
+        ...prev.slice(0, targetIndex),
+        {
+          id: prev[targetIndex].id,
+          title: prev[targetIndex].title,
+          done: checked,
+        },
+        ...prev.slice(targetIndex + 1),
+      ]
 
-      console.log("newList:", newList)
+      console.log('newList:', newList)
 
       return newList
     })
