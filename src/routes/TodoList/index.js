@@ -1,8 +1,10 @@
 import { useState } from 'react'
 import styles from './TodoList.module.scss'
 import { CheckIcon } from '../../assets/svgs'
-import { useRecoilState } from "recoil"
+import { useRecoilState } from 'recoil'
 import { todoListState } from '../../atom/Todolist'
+
+import SideBar from '../../components/SideBar'
 
 // const INIT_TODO = [
 //   {
@@ -25,6 +27,7 @@ import { todoListState } from '../../atom/Todolist'
 function TodoList() {
   // const [todoList, setTodoList] = useState(INIT_TODO)
   const [todoList, setTodoList] = useRecoilState(todoListState)
+  const [openSide, setOpenSide] = useState(false)
 
   const handleAddClick = (e) => {
     // console.log('handleAddClick')
@@ -34,43 +37,58 @@ function TodoList() {
     const { dataset, checked } = e.currentTarget
     const { id } = dataset
 
-
     setTodoList((prev) => {
       const targetIndex = prev.findIndex((todo) => todo.id === Number(id))
       // const newListTest = [...prev]
-      
+
       // newListTest[targetIndex].done = checked
 
       // console.log("newListTest", newListTest)
-      const newList = [...prev.slice(0,targetIndex), {
-        id:prev[targetIndex].id,
-        title: prev[targetIndex].title,
-        done: checked
-      },...prev.slice(targetIndex+1)]
+      const newList = [
+        ...prev.slice(0, targetIndex),
+        {
+          id: prev[targetIndex].id,
+          title: prev[targetIndex].title,
+          done: checked,
+        },
+        ...prev.slice(targetIndex + 1),
+      ]
 
-      console.log("newList:", newList)
+      console.log('newList:', newList)
 
       return newList
     })
   }
 
   return (
-    <div className={styles.todoList}>
-      <div className={styles.centering}>
-        <h1>Hi! this is your assignment.</h1>
-        <ul className={styles.tasks}>
-          <p className={styles.tasksTitle}>Today&apos;s</p>
-          {todoList.map((todo) => (
-            <li key={`todo-${todo.id}`} className={styles.task}>
-              <div className={styles.checkboxWrapper}>
-                <input type='checkbox' checked={todo.done} data-id={todo.id} onChange={handleChange} />
-                <CheckIcon />
-              </div>
-              <p className={styles.title}>{todo.title}</p>
-            </li>
-          ))}
-        </ul>
-        <button type='button' className={styles.addButton} onClick={handleAddClick} aria-label='Add button' />
+    <div className={styles.todoListWrap}>
+      <SideBar />
+      {/* css모듈 여러개쓰려면 아래처럼 한번더 감싸주자 */}
+      <div className={`${styles.todoList} ${openSide && styles.sideOpen}`}>
+        <button
+          type='button'
+          onClick={() => {
+            setOpenSide(!openSide)
+          }}
+        >
+          사이드버튼
+        </button>
+        <div className={styles.centering}>
+          <h1>Hi! this is your assignment.</h1>
+          <ul className={styles.tasks}>
+            <p className={styles.tasksTitle}>Today&apos;s</p>
+            {todoList.map((todo) => (
+              <li key={`todo-${todo.id}`} className={styles.task}>
+                <div className={styles.checkboxWrapper}>
+                  <input type='checkbox' checked={todo.done} data-id={todo.id} onChange={handleChange} />
+                  <CheckIcon />
+                </div>
+                <p className={styles.title}>{todo.title}</p>
+              </li>
+            ))}
+          </ul>
+          <button type='button' className={styles.addButton} onClick={handleAddClick} aria-label='Add button' />
+        </div>
       </div>
     </div>
   )
