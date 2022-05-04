@@ -42,6 +42,7 @@ function TodoList() {
       // newListTest[targetIndex].done = checked
 
       // console.log("newListTest", newListTest)
+
       const newList = [...prev.slice(0,targetIndex), {
         id:prev[targetIndex].id,
         title: prev[targetIndex].title,
