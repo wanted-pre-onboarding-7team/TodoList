@@ -1,0 +1,34 @@
+@use '/src/styles/constants/colors';
+@use '/src/styles/constants/levels';
+@use '/src/styles/mixins/flexbox';
+@use '/src/styles/mixins/position';
+
+.category {
+  position: relative;
+  width: 150px;
+  height: 90px;
+  padding: 15px;
+  background-color: colors.$WHITE;
+  border-radius: 20px;
+  box-shadow: 0 10px 20px 0 rgba(colors.$BLACK, 2%);
+
+  .totalTasks {
+    color: colors.$GRAYA;
+    font-size: 10px;
+  }
+
+  .title {
+    height: 32px;
+    line-height: 32px;
+    font-size: 18px;
+    font-weight: 600;
+  }
+
+  .range {
+    width: 120px;
+    height: 2px;
+    margin-top: 15px;
+    border-radius: 2px;
+    background: linear-gradient(to right, colors.$BLUE 0%, colors.$BLUE 30%, colors.$GRAYD 30%, colors.$GRAYD 100%);
+  }
+}

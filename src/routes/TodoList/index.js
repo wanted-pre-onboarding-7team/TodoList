@@ -1,7 +1,8 @@
 import { useState } from 'react'
 import styles from './TodoList.module.scss'
+import Category from '../../components/Category'
 import { CheckIcon } from '../../assets/svgs'
-import { useRecoilState } from "recoil"
+import { useRecoilState } from 'recoil'
 import { todoListState } from '../../atom/Todolist'
 
 // const INIT_TODO = [
@@ -34,22 +35,25 @@ function TodoList() {
     const { dataset, checked } = e.currentTarget
     const { id } = dataset
 
-
     setTodoList((prev) => {
       const targetIndex = prev.findIndex((todo) => todo.id === Number(id))
       // const newListTest = [...prev]
-      
+
       // newListTest[targetIndex].done = checked
 
       // console.log("newListTest", newListTest)
 
-      const newList = [...prev.slice(0,targetIndex), {
-        id:prev[targetIndex].id,
-        title: prev[targetIndex].title,
-        done: checked
-      },...prev.slice(targetIndex+1)]
+      const newList = [
+        ...prev.slice(0, targetIndex),
+        {
+          id: prev[targetIndex].id,
+          title: prev[targetIndex].title,
+          done: checked,
+        },
+        ...prev.slice(targetIndex + 1),
+      ]
 
-      console.log("newList:", newList)
+      console.log('newList:', newList)
 
       return newList
     })
@@ -59,6 +63,12 @@ function TodoList() {
     <div className={styles.todoList}>
       <div className={styles.centering}>
         <h1>Hi! this is your assignment.</h1>
+        <p className={styles.tasksTitle}>Categories</p>
+        <div className={styles.categories}>
+          <Category />
+          <Category />
+          <Category />
+        </div>
         <ul className={styles.tasks}>
           <p className={styles.tasksTitle}>Today&apos;s</p>
           {todoList.map((todo) => (
