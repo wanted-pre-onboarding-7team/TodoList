@@ -57,13 +57,17 @@
     "eslint-webpack-plugin": "^3.1.1",
     "postcss-scss": "^4.0.4",
     "prettier": "^2.6.2",
+    "prettier-plugin-style-order": "^0.2.2",
     "sass": "^1.51.0",
     "sass-loader": "^12.6.0",
     "style-loader": "^3.3.1",
-    "stylelint": "^14.8.1",
+    "stylelint": "^14.8.2",
     "stylelint-config-recess-order": "^3.0.0",
+    "stylelint-config-standard": "^25.0.0",
     "stylelint-config-standard-scss": "^3.0.0",
-    "stylelint-declaration-strict-value": "^1.8.0"
+    "stylelint-config-styled-components": "^0.1.1",
+    "stylelint-declaration-strict-value": "^1.8.0",
+    "stylelint-processor-styled-components": "^1.10.0"
   },
   "homepage": "https://wanted-pre-onboarding-7team.github.io/TodoList"
 }

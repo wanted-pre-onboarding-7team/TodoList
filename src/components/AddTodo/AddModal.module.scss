@@ -1,0 +1,132 @@
+@use '/src/styles/constants/colors';
+@use '/src/styles/constants/levels';
+@use '/src/styles/mixins/flexbox';
+@use '/src/styles/mixins/position';
+
+.addModal {
+  position: absolute;
+  z-index: levels.$ADD_MODAL;
+  width: 360px;
+  height: 720px;
+  padding: 120px 50px 44px;
+  background-color: white;
+  border-radius: 60px;
+
+  .closeButton {
+    @include position.absolute(60px 40px auto auto);
+    width: 52px;
+    height: 52px;
+    background-color: colors.$WHITE;
+    border: 2px solid #dee3f9;
+    border-radius: 50%;
+
+    &::before,
+    &::after {
+      @include position.middleBox;
+      width: 20px;
+      height: 2px;
+      background-color: colors.$GRAY2;
+      transform: translate(-50%, -50%) rotate(45deg);
+      content: '';
+    }
+    &::after {
+      transform: translate(-50%, -50%) rotate(135deg);
+    }
+  }
+
+  input[type='text'] {
+    margin-top: 112px;
+    font-size: 26px;
+    caret-color: colors.$TEAL;
+
+    &::placeholder {
+      color: colors.$TASKS_TITLE;
+    }
+  }
+
+  .optionBox {
+    display: flex;
+    margin: 48px 0px 92px;
+
+    .dateBox {
+      @include flexbox.flexbox('between');
+      width: 128px;
+      height: 52px;
+      margin: 0 12px 0 -8px;
+      padding: 0 24px 0 16px;
+      color: colors.$GRAYA;
+      font-weight: 600;
+      border: 2px solid #dee3f9;
+      border-radius: 100px;
+      cursor: pointer;
+    }
+
+    .categoryButton {
+      position: relative;
+      width: 52px;
+      height: 52px;
+      border: 2px solid #dee3f9;
+      border-radius: 50%;
+      cursor: pointer;
+
+      &::before,
+      &::after {
+        @include position.middleBox;
+        width: 50%;
+        height: 50%;
+        border: 2px solid colors.$BLUE;
+        border-radius: 50%;
+        content: '';
+      }
+
+      &::after {
+        width: 25%;
+        height: 25%;
+        background-color: colors.$BLUE;
+      }
+    }
+  }
+
+  .IconBox {
+    @include flexbox.flexbox;
+
+    svg {
+      width: 28px;
+      height: 28px;
+      margin: 0 20px;
+      color: colors.$GRAYA;
+      cursor: pointer;
+    }
+  }
+
+  .addButton {
+    @include position.absolute(auto 40px 40px auto);
+    @include flexbox.flexbox;
+    width: 184px;
+    height: 66px;
+    background-color: colors.$BLUE;
+    border-radius: 50px;
+    box-shadow: 0 10px 20px 0 rgba(colors.$BLUE, 25%);
+    transition: 0.2s;
+
+    &:hover {
+      background-color: rgba(colors.$BLUE, 90%);
+    }
+
+    &::before {
+      @include position.relative(0px);
+      color: colors.$WHITE;
+      font-size: 16px;
+      letter-spacing: 0.02em;
+      content: 'New task';
+    }
+
+    &::after {
+      margin-left: 10px;
+      color: colors.$WHITE;
+      font-size: 24px;
+      transform: scaleY(0.5) rotate(-90deg);
+      content: '>';
+    }
+  }
+}
