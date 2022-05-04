@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import styles from './TodoList.module.scss'
 import Category from '../../components/Category'
+import CategoryWrap from '../../components/Category/CategoryWrap'
 import { CheckIcon } from '../../assets/svgs'
 import { useRecoilState } from 'recoil'
 import { todoListState } from '../../atom/Todolist'
@@ -64,11 +65,7 @@ function TodoList() {
       <div className={styles.centering}>
         <h1>Hi! this is your assignment.</h1>
         <p className={styles.tasksTitle}>Categories</p>
-        <div className={styles.categories}>
-          <Category />
-          <Category />
-          <Category />
-        </div>
+        <CategoryWrap />
         <ul className={styles.tasks}>
           <p className={styles.tasksTitle}>Today&apos;s</p>
           {todoList.map((todo) => (
