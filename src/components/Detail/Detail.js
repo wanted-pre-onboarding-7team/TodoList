@@ -7,18 +7,17 @@ import React, { useState } from 'react'
 export default function Detail(props: any) {
   const [todoList, setTodoList] = useRecoilState(todoListState)
   const { item, handleCloseModal, handleTodoDelete, handleTodoEdit } = props
-  const [inputValue, setInputValue] = useState()
+  const [inputValue, setInputValue] = useState(item.title)
 
   const updateValue = (e) => {
     setInputValue(e.target.value)
-    console.log(e.target.value)
   }
 
   return (
     <div className={styles.detailWrap}>
       <div className={styles.centering}>
         <button type='button' className={styles.closeButton} aria-label='Close button' onClick={handleCloseModal} />
-        <input type='text' defaultValue={item.title} className={styles.title} onChange={(e) => updateValue(e)} />
+        <input type='text' defaultValue={item.title || ''} className={styles.title} onChange={(e) => updateValue(e)} />
         <div className={styles.todayBtnWrap}>
           <button type='button' className={styles.todayButton}>
             <CalendarIcon />
