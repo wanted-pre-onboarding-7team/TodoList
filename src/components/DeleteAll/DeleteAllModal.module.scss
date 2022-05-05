@@ -10,8 +10,8 @@
   width: 360px;
   height: 720px;
   padding: 40px;
-  border-radius: 60px;
   background-color: rgba(colors.$BLACK, 50%);
+  border-radius: 60px;
 }
 
 .modalView {
@@ -20,8 +20,8 @@
   width: 280px;
   height: 180px;
   padding: 50px 40px 30px 40px;
-  border-radius: 2rem;
   background-color: white;
+  border-radius: 2rem;
 
   p {
     margin-bottom: 20px;
@@ -48,8 +48,8 @@
   font-weight: 600;
   font-size: 12px;
   letter-spacing: 0.05em;
-  border-radius: 10px;
   border: 2px solid colors.$RED;
+  border-radius: 10px;
   transition: 0.4s;
 
   &:hover {
