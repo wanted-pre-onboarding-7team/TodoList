@@ -1,6 +1,6 @@
-import React, { useMemo } from 'react'
+import { useEffect, useMemo } from 'react'
 import styles from './Category.module.scss'
-import { useRecoilValue } from 'recoil'
+import { useRecoilValue, useRecoilCallback } from 'recoil'
 import { todoListState } from '../../atom/Todolist'
 import PropTypes from 'prop-types'
 
@@ -12,6 +12,7 @@ function makeGradientColorText(color, total, done) {
 
 function Category({ categoryType, categoryColor }) {
   const todolist = useRecoilValue(todoListState)
+
   const filterdTodoList = useMemo(() => {
     return todolist.filter((item) => item.category === categoryType)
   }, [categoryType, todolist])
@@ -20,18 +21,14 @@ function Category({ categoryType, categoryColor }) {
     return filterdTodoList.filter((item) => item.done === true).length
   }, [filterdTodoList])
 
-  const backgroundGradientText = useMemo(()=>{
+  const backgroundGradientText = useMemo(() => {
     return makeGradientColorText(categoryColor, filterdTodoList.length, donefilterdTodoListLength)
   }, [donefilterdTodoListLength, filterdTodoList, categoryColor])
-
   return (
     <div className={styles.category}>
       <p className={styles.totalTasks}>{filterdTodoList.length} stasks</p>
       <p className={styles.title}>{categoryType}</p>
-      <div
-        className={styles.range}
-        style={{ background: backgroundGradientText}}
-      />
+      <div className={styles.range} style={{ background: backgroundGradientText }} />
     </div>
   )
 }

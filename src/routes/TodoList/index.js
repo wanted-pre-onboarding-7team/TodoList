@@ -50,6 +50,7 @@ function TodoList() {
           id: prev[targetIndex].id,
           title: prev[targetIndex].title,
           done: checked,
+          category: prev[targetIndex].category,
         },
         ...prev.slice(targetIndex + 1),
       ]
