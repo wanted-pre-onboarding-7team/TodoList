@@ -2,7 +2,7 @@ import { useMemo } from 'react'
 import styles from './Category.module.scss'
 import { useRecoilValue } from 'recoil'
 import { todoListState } from '../../atom/Todolist'
-import PropTypes, { func } from 'prop-types'
+import PropTypes from 'prop-types'
 
 function makeGradientColorText(color, total, done) {
   const colorPersent = isNaN((done / total) * 100) ? 0 : (done / total) * 100
@@ -10,11 +10,11 @@ function makeGradientColorText(color, total, done) {
   return result
 }
 
-function makeUpperCaseFristChar(text){
-  return text.replace(/\b[a-z]/, letter => letter.toUpperCase())
+function makeUpperCaseFristChar(text) {
+  return text.replace(/\b[a-z]/, (letter) => letter.toUpperCase())
 }
 
-function Category({ categoryType, categoryColor }) {
+function Category({ categoryType, categoryColor, onClick }) {
   const todolist = useRecoilValue(todoListState)
 
   const filteredTodoList = useMemo(() => {
@@ -29,18 +29,25 @@ function Category({ categoryType, categoryColor }) {
   const backgroundGradientText = useMemo(() => {
     return makeGradientColorText(categoryColor, filteredTodoList.length, donefilteredTodoListLength)
   }, [donefilteredTodoListLength, filteredTodoList, categoryColor])
+
   return (
-    <div className={styles.category}>
-      <p className={styles.totalTasks}>{filteredTodoList.length} stasks</p>
+    <button type='button' className={styles.category} data-title={categoryType} onClick={onClick}>
+      <p className={styles.totalTasks}>{filteredTodoList.length} tasks</p>
       <p className={styles.title}>{makeUpperCaseFristChar(categoryType)}</p>
-      <div className={styles.range} style={{ background: backgroundGradientText }} />
-    </div>
+      <div className={styles.range} style={{ background: backgroundGradientText, transition: '1s' }} />
+    </button>
   )
 }
 
 Category.propTypes = {
-  categoryType: PropTypes.string.isRequired,
-  categoryColor: PropTypes.string.isRequired,
+  categoryType: PropTypes.string,
+  categoryColor: PropTypes.string,
+  onClick: PropTypes.func,
+}
+
+Category.defaultProps = {
+  categoryType: 'all',
+  categoryColor: '#af52de',
 }
 
 export default Category

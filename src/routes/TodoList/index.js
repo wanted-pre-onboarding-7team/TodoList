@@ -1,10 +1,10 @@
 import { useState } from 'react'
 import styles from './TodoList.module.scss'
-import CategoryWrap from '../../components/Category/CategoryWrap'
+import Category from '../../components/Category'
 import { CheckIcon } from '../../assets/svgs'
-import { useRecoilState } from 'recoil'
-import { todoListState } from '../../atom/Todolist'
-
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil'
+import { filteredTodoListState, todoListCategory, todoListState } from '../../atom/Todolist'
+import { CategoryType } from '../../atom/CategoryList'
 
 // const INIT_TODO = [
 //   {
@@ -27,9 +27,17 @@ import { todoListState } from '../../atom/Todolist'
 function TodoList() {
   // const [todoList, setTodoList] = useState(INIT_TODO)
   const [todoList, setTodoList] = useRecoilState(todoListState)
+  const setCategory = useSetRecoilState(todoListCategory)
+  const filteredTodoList = useRecoilValue(filteredTodoListState)
 
   const handleAddClick = (e) => {
     // console.log('handleAddClick')
+  }
+
+  const handleCategoryClick = (e) => {
+    const { title } = e.currentTarget.dataset
+
+    setCategory(() => title)
   }
 
   const handleChange = (e) => {
@@ -66,10 +74,20 @@ function TodoList() {
       <div className={styles.centering}>
         <h1>Hi! this is your assignment.</h1>
         <p className={styles.tasksTitle}>Categories</p>
-        <CategoryWrap />
+        <div className={styles.categories}>
+          <Category onClick={handleCategoryClick} />
+          {CategoryType.map((item) => (
+            <Category
+              key={item.id}
+              categoryType={item.title}
+              categoryColor={item.color}
+              onClick={handleCategoryClick}
+            />
+          ))}
+        </div>
         <ul className={styles.tasks}>
           <p className={styles.tasksTitle}>Today&apos;s</p>
-          {todoList.map((todo) => (
+          {filteredTodoList.map((todo) => (
             <li key={`todo-${todo.id}`} className={styles.task}>
               <div className={styles.checkboxWrapper}>
                 <input type='checkbox' checked={todo.done} data-id={todo.id} onChange={handleChange} />

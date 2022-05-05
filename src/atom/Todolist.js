@@ -44,27 +44,19 @@ export const todoListState = atom({
 
 export const todoListCategory = atom({
   key: 'todoListCategory',
-  default: 'business',
+  default: 'all',
 })
 
-export const filteredCategryTodoListState = selector({
-  key: 'filteredCategryTodoListState',
+export const filteredTodoListState = selector({
+  key: 'filteredTodoListState',
   get: ({ get }) => {
-    const todolist = get(todoListState)
+    const todoList = get(todoListState)
     const category = get(todoListCategory)
-    
-    switch (category) {
-      case 'business':
-        return todolist.filter((item) => item.category === "business")
 
-      case 'personal':
-        return todolist.filter((item) => item.category === category)
-
-      case 'nomal':
-        return todolist.filter((item) => item.category === category)
-
-      default:
-        return todolist
+    if (category === 'all') {
+      return todoList
     }
+
+    return todoList.filter((item) => item.category === category)
   },
 })
