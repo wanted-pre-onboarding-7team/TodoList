@@ -10,7 +10,7 @@ export const CategoryType = [
         color:"#ff2d55",
     },
     {
-        title:"nomal",
+        title:"all",
         id:3,
         color:"#af52de",
     },

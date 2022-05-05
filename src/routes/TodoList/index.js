@@ -1,10 +1,10 @@
 import { useState } from 'react'
 import styles from './TodoList.module.scss'
-import Category from '../../components/Category'
 import CategoryWrap from '../../components/Category/CategoryWrap'
 import { CheckIcon } from '../../assets/svgs'
 import { useRecoilState } from 'recoil'
 import { todoListState } from '../../atom/Todolist'
+
 
 // const INIT_TODO = [
 //   {
