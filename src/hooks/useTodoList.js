@@ -4,17 +4,17 @@ import { todoListState } from '../atom/Todolist'
 const useTodoList = () => {
   const [todoList, setTodoList] = useRecoilState(todoListState)
 
-  const handleAddTest = (e) => {
+  const addTodoList = (inputValue) => {
     const newValue = {
-      id: 4,
-      title: '테스트입니다',
+      id: todoList.length + 1,
+      title: inputValue,
       done: false,
     }
-
-    setTodoList(todoList.concat(newValue))
+    const newTodoList = todoList.concat(newValue)
+    setTodoList(newTodoList)
+    localStorage.setItem('todoList', JSON.stringify(newTodoList))
   }
-
-  return { handleAddTest }
+  return { addTodoList }
 }
 
 export default useTodoList

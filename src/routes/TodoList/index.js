@@ -3,19 +3,32 @@ import styles from './TodoList.module.scss'
 import { CheckIcon } from '../../assets/svgs'
 import { useRecoilState } from 'recoil'
 import { todoListState } from '../../atom/Todolist'
-import useTodoList from '../../hooks/useTodoList'
+import AddModal from '../../components/AddTodo/AddModal'
+
+// const INIT_TODO = [
+//   {
+//     id: 1,
+//     title: '계란 2판 사기',
+//     done: false,
+//   },
+//   {
+//     id: 2,
+//     title: '맥북 프로 M1 Max CTO 버전 사기',
+//     done: false,
+//   },
+//   {
+//     id: 3,
+//     title: '오늘의 TIL 작성하기',
+//     done: false,
+//   },
+// ]
 
 function TodoList() {
+  // const [todoList, setTodoList] = useState(INIT_TODO)
   const [todoList, setTodoList] = useRecoilState(todoListState)
-  const { handleAddTest } = useTodoList()
-  // const handleAddClick = (e) => {
-  //   console.log('handleAddClick')
-  // }
-
-  const [isAddModal, setIsAddModal] = useState(false)
-
-  const handleAddModal = (e) => {
-    setIsAddModal((prev) => !prev)
+  const [openAddModal, setOpenAddModal] = useState(false)
+  const handleAddClick = () => {
+    setOpenAddModal(true)
   }
 
   const handleChange = (e) => {
@@ -39,8 +52,6 @@ function TodoList() {
         ...prev.slice(targetIndex + 1),
       ]
 
-      console.log('newList:', newList)
-
       return newList
     })
   }
@@ -61,7 +72,9 @@ function TodoList() {
             </li>
           ))}
         </ul>
+        <button type='button' className={styles.addButton} onClick={handleAddClick} aria-label='Add button' />
       </div>
+      {openAddModal && <AddModal setOpenAddModal={setOpenAddModal} />}
     </div>
   )
 }

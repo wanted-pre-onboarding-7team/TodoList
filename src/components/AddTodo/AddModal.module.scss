@@ -4,7 +4,7 @@
 @use '/src/styles/mixins/position';
 
 .addModal {
-  position: absolute;
+  @include position.middleBox;
   z-index: levels.$ADD_MODAL;
   width: 360px;
   height: 720px;
@@ -12,7 +12,7 @@
   background-color: white;
   border-radius: 60px;
 
-  .closeButton {
+  .closeBtn {
     @include position.absolute(60px 40px auto auto);
     width: 52px;
     height: 52px;
@@ -35,6 +35,7 @@
   }
 
   input[type='text'] {
+    width: 100%;
     margin-top: 112px;
     font-size: 26px;
     caret-color: colors.$TEAL;
@@ -44,11 +45,11 @@
     }
   }
 
-  .optionBox {
+  .optionWrapper {
     display: flex;
     margin: 48px 0px 92px;
 
-    .dateBox {
+    .calendarBtn {
       @include flexbox.flexbox('between');
       width: 128px;
       height: 52px;
@@ -61,7 +62,7 @@
       cursor: pointer;
     }
 
-    .categoryButton {
+    .categoryBtn {
       position: relative;
       width: 52px;
       height: 52px;
@@ -87,7 +88,7 @@
     }
   }
 
-  .IconBox {
+  .IconWrapper {
     @include flexbox.flexbox;
 
     svg {
@@ -99,7 +100,7 @@
     }
   }
 
-  .addButton {
+  .addBtn {
     @include position.absolute(auto 40px 40px auto);
     @include flexbox.flexbox;
     width: 184px;
