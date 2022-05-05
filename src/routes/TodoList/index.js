@@ -1,8 +1,9 @@
 import { useState } from 'react'
 import styles from './TodoList.module.scss'
 import { CheckIcon } from '../../assets/svgs'
-import { useRecoilState } from "recoil"
+import { useRecoilState } from 'recoil'
 import { todoListState } from '../../atom/Todolist'
+import DeleteAllModal from '../../components/DeleteAll'
 
 // const INIT_TODO = [
 //   {
@@ -25,30 +26,42 @@ import { todoListState } from '../../atom/Todolist'
 function TodoList() {
   // const [todoList, setTodoList] = useState(INIT_TODO)
   const [todoList, setTodoList] = useRecoilState(todoListState)
+  const [isOpenDeleteModal, setIsOpenDeleteModal] = useState(false)
 
-  const handleAddClick = (e) => {
-    // console.log('handleAddClick')
+  const handleAddClick = () => {}
+
+  const handleDeleteAllClick = () => {
+    setIsOpenDeleteModal(!isOpenDeleteModal)
+  }
+
+  const handleCloseModalFunction = (isCloseModal) => {
+    // eslint-disable-next-line no-console
+    //  console.log(isCloseModal)
+    if (isCloseModal === true) {
+      setIsOpenDeleteModal(false)
+    }
   }
 
   const handleChange = (e) => {
     const { dataset, checked } = e.currentTarget
     const { id } = dataset
 
-
     setTodoList((prev) => {
       const targetIndex = prev.findIndex((todo) => todo.id === Number(id))
       // const newListTest = [...prev]
-      
+
       // newListTest[targetIndex].done = checked
 
       // console.log("newListTest", newListTest)
-      const newList = [...prev.slice(0,targetIndex), {
-        id:prev[targetIndex].id,
-        title: prev[targetIndex].title,
-        done: checked
-      },...prev.slice(targetIndex+1)]
-
-      console.log("newList:", newList)
+      const newList = [
+        ...prev.slice(0, targetIndex),
+        {
+          id: prev[targetIndex].id,
+          title: prev[targetIndex].title,
+          done: checked,
+        },
+        ...prev.slice(targetIndex + 1),
+      ]
 
       return newList
     })
@@ -59,7 +72,17 @@ function TodoList() {
       <div className={styles.centering}>
         <h1>Hi! this is your assignment.</h1>
         <ul className={styles.tasks}>
-          <p className={styles.tasksTitle}>Today&apos;s</p>
+          <div className={styles.tasksTopWrapper}>
+            <p className={styles.tasksTitle}>Today&apos;s</p>
+            <button
+              type='button'
+              className={styles.deleteButton}
+              onClick={handleDeleteAllClick}
+              aria-label='Delete All TodoList button'
+            >
+              Delete All
+            </button>
+          </div>
           {todoList.map((todo) => (
             <li key={`todo-${todo.id}`} className={styles.task}>
               <div className={styles.checkboxWrapper}>
@@ -70,8 +93,15 @@ function TodoList() {
             </li>
           ))}
         </ul>
-        <button type='button' className={styles.addButton} onClick={handleAddClick} aria-label='Add button' />
+        <button
+          type='button'
+          className={styles.addButton}
+          onClick={handleAddClick}
+          setIsOpenDeleteModal={setIsOpenDeleteModal}
+          aria-label='Add button'
+        />
       </div>
+      {isOpenDeleteModal ? <DeleteAllModal handleCloseModalFunction={handleCloseModalFunction} /> : ''}
     </div>
   )
 }

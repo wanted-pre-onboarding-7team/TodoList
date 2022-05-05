@@ -1,0 +1,59 @@
+@use '/src/styles/constants/colors';
+@use '/src/styles/mixins/position';
+@use '/src/styles/mixins/flexbox';
+@use '/src/styles/constants/levels';
+
+.modalBackDrop {
+  @include position.absolute(auto 0 0 auto);
+  @include flexbox.flexbox(center center);
+  z-index: levels.$MODAL_BACK_DROP;
+  width: 360px;
+  height: 720px;
+  padding: 40px;
+  border-radius: 60px;
+  background-color: rgba(colors.$BLACK, 50%);
+}
+
+.modalView {
+  position: relative;
+  z-index: levels.$MODAL_BOX;
+  width: 280px;
+  height: 180px;
+  padding: 50px 40px 30px 40px;
+  border-radius: 2rem;
+  background-color: white;
+
+  p {
+    margin-bottom: 20px;
+    color: colors.$BIG_TITLE;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 20px;
+  }
+}
+
+.closeButton {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.deleteButton {
+  @include position.absolute(auto 40px 30px auto);
+  width: 85px;
+  height: 35px;
+  color: colors.$RED;
+  font-weight: 600;
+  font-size: 12px;
+  letter-spacing: 0.05em;
+  border-radius: 10px;
+  border: 2px solid colors.$RED;
+  transition: 0.4s;
+
+  &:hover {
+    color: colors.$WHITE;
+    background-color: colors.$RED;
+  }
+}
