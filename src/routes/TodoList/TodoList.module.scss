@@ -72,6 +72,10 @@
       overflow: scroll;
     }
 
+    .grabbing {
+      border: 3px solid #526fff;
+    }
+
     .task {
       display: flex;
       align-items: center;
