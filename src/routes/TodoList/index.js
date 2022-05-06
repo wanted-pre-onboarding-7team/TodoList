@@ -154,19 +154,16 @@ function TodoList() {
             </li>
           ))}
         </ul>
-      </div>
-      <div>
-        {isOpenModal && (
-          <Detail
-            item={isOpenModal}
-            handleCloseModal={handleCloseModal}
-            handleTodoDelete={handleTodoDelete}
-            handleTodoEdit={handleTodoEdit}
-          />
-        )}
         <button type='button' className={styles.addButton} onClick={handleAddClick} aria-label='Add button' />
       </div>
-
+      {isOpenModal && (
+        <Detail
+          item={isOpenModal}
+          handleCloseModal={handleCloseModal}
+          handleTodoDelete={handleTodoDelete}
+          handleTodoEdit={handleTodoEdit}
+        />
+      )}
       {isOpenDeleteModal ? <DeleteAllModal handleCloseModalFunction={handleCloseModalFunction} /> : ''}
     </div>
   )
