@@ -32,9 +32,9 @@
       @include position.middleBox;
       z-index: levels.$CHECK_ICON;
       color: colors.$WHITE;
+      pointer-events: none;
       opacity: 0;
       transition: 0.2s;
-      pointer-events: none;
     }
   }
 
@@ -43,9 +43,9 @@
     z-index: levels.$CHECK_BOX;
     width: 28px;
     height: 28px;
+    cursor: pointer;
     border: 2px solid colors.$BLUE;
     border-radius: 50%;
-    cursor: pointer;
     transition: 0.2s;
 
     &:checked {
@@ -61,9 +61,10 @@
   .title {
     overflow: hidden;
     color: colors.$TASK_ITEM_TITLE;
-    white-space: nowrap;
     text-overflow: ellipsis;
+    white-space: nowrap;
   }
+
   .show {
     text-decoration: line-through;
   }

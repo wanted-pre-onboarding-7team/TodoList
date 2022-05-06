@@ -6,7 +6,7 @@
 
 // 투두 움직일때 쓸 클래스
 .sideOpen {
-  -webkit-transform: scale(0.9);
+  transform: scale(0.9);
   transform: translateX(70%) scale(0.9);
 }
 
@@ -15,13 +15,12 @@
   height: 720px;
   background-color: #fafbfe;
   border-radius: 60px;
-
   transition: all ease-out 0.7s;
 
   h1 {
-    color: colors.$BIG_TITLE;
-    font-weight: 600;
     font-size: 32px;
+    font-weight: 600;
+    color: colors.$BIG_TITLE;
   }
 
   .centering {
@@ -45,20 +44,20 @@
 
     .tasksTitle {
       margin: 30px 0 24px;
-      color: colors.$TASKS_TITLE;
-      font-weight: 600;
       font-size: 12px;
-      letter-spacing: 0.05em;
+      font-weight: 600;
+      color: colors.$TASKS_TITLE;
       text-transform: uppercase;
+      letter-spacing: 0.05em;
     }
 
     .deleteButton {
       margin: 30px 0 24px;
-      color: #8f99bf;
-      font-weight: 600;
       font-size: 12px;
-      letter-spacing: 0.05em;
+      font-weight: 600;
+      color: #8f99bf;
       text-transform: uppercase;
+      letter-spacing: 0.05em;
       cursor: pointer;
       transition: 0.3s;
 
@@ -96,9 +95,9 @@
           @include position.middleBox;
           z-index: levels.$CHECK_ICON;
           color: colors.$WHITE;
+          pointer-events: none;
           opacity: 0;
           transition: 0.2s;
-          pointer-events: none;
         }
       }
 
@@ -107,9 +106,9 @@
         z-index: levels.$CHECK_BOX;
         width: 28px;
         height: 28px;
+        cursor: pointer;
         border: 2px solid colors.$BLUE;
         border-radius: 50%;
-        cursor: pointer;
         transition: 0.2s;
 
         &:checked {
@@ -125,8 +124,8 @@
       .title {
         overflow: hidden;
         color: colors.$TASK_ITEM_TITLE;
-        white-space: nowrap;
         text-overflow: ellipsis;
+        white-space: nowrap;
       }
     }
 
@@ -148,8 +147,8 @@
         @include position.middleBox;
         width: 20px;
         height: 2px;
-        background-color: colors.$WHITE;
         content: '';
+        background-color: colors.$WHITE;
       }
 
       &::after {
