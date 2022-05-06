@@ -4,10 +4,10 @@ import { useRecoilValue } from 'recoil'
 import { todoListState } from '../../atom/Todolist'
 import PropTypes from 'prop-types'
 
-function makeGradientColorText(color, total, done) {
+function makeColorWidthText(color, total, done) {
   const colorPersent = isNaN((done / total) * 100) ? 0 : (done / total) * 100
-  const result = `linear-gradient(to right, ${color} 0%, ${color} ${colorPersent}%, #aaaaaa ${colorPersent}%, #aaaaaa 100%)`
-  return result
+  // const result = `linear-gradient(to right, ${color} 0%, ${color} ${colorPersent}%, #aaaaaa ${colorPersent}%, #aaaaaa 100%)`
+  return colorPersent
 }
 
 function makeUpperCaseFristChar(text) {
@@ -27,14 +27,16 @@ function Category({ categoryType, categoryColor, onClick }) {
   }, [filteredTodoList])
 
   const backgroundGradientText = useMemo(() => {
-    return makeGradientColorText(categoryColor, filteredTodoList.length, donefilteredTodoListLength)
+    return makeColorWidthText(categoryColor, filteredTodoList.length, donefilteredTodoListLength)
   }, [donefilteredTodoListLength, filteredTodoList, categoryColor])
 
   return (
     <button type='button' className={styles.category} data-title={categoryType} onClick={onClick}>
       <p className={styles.totalTasks}>{filteredTodoList.length} tasks</p>
       <p className={styles.title}>{makeUpperCaseFristChar(categoryType)}</p>
-      <div className={styles.range} style={{ background: backgroundGradientText, transition: '1s' }} />
+      <div className={styles.range_wrapper}>
+        <div className={styles.range} style={{width:`${backgroundGradientText}%`, background:categoryColor}} />
+      </div>
     </button>
   )
 }

@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import styles from './TodoList.module.scss'
 import Category from '../../components/Category'
 import { CheckIcon } from '../../assets/svgs'
@@ -20,6 +20,10 @@ function TodoList() {
   const setCategory = useSetRecoilState(todoListCategory)
   const filteredTodoList = useRecoilValue(filteredTodoListState)
   const { handleDragStart, handleDragOver, handleDragEnd, handleOnDrop, grab } = useDragDrop()
+
+  useEffect(()=>{
+    setTodoList(JSON.parse(localStorage.getItem("todoList")))
+  }, [setTodoList])
 
   const handleOpenModal = (id, title) => {
     setIsOpenModal({ id, title })
