@@ -1,9 +1,9 @@
 import { useState } from 'react'
 import { useSetRecoilState } from 'recoil'
-import { todoListState } from '../atom/Todolist'
+import { todoListState } from '../../atom/Todolist'
 
 import styles from './SearchTodo.module.scss'
-import { SearchIcon } from '../assets/svgs'
+import { SearchIcon } from '../../assets/svgs'
 
 function SearchTodo() {
   const [isSearchOpened, setIsSearchOpen] = useState(false)

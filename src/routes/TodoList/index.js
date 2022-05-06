@@ -1,18 +1,17 @@
 import { useState } from 'react'
 import styles from './TodoList.module.scss'
-import TodoListCheck from '../../components/TodoCheck/todoCheck'
 import Category from '../../components/Category'
 import { CheckIcon } from '../../assets/svgs'
 import AddModal from '../../components/AddTodo/AddModal'
-import SearchTodo from '../../components/SearchTodo'
+import SearchTodo from '../../components/SearchTodo/SearchTodo'
 import Detail from '../../components/Detail/Detail'
 import DeleteAllModal from '../../components/DeleteAll'
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil'
 import { filteredTodoListState, todoListCategory, todoListState } from '../../atom/Todolist'
 import { CategoryType } from '../../atom/CategoryList'
+import useDragDrop from '../../hooks/useDragDrop'
 
 function TodoList() {
-  // const [todoList, setTodoList] = useState(INIT_TODO)
   const [todoList, setTodoList] = useRecoilState(todoListState)
   const [openAddModal, setOpenAddModal] = useState(false)
   const [openSide, setOpenSide] = useState(false)
@@ -20,32 +19,28 @@ function TodoList() {
   const [isOpenDeleteModal, setIsOpenDeleteModal] = useState(false)
   const setCategory = useSetRecoilState(todoListCategory)
   const filteredTodoList = useRecoilValue(filteredTodoListState)
+  const { handleDragStart, handleDragOver, handleDragEnd, handleOnDrop, grab } = useDragDrop()
 
-  // 기능1. 모달 오픈
   const handleOpenModal = (id, title) => {
     setIsOpenModal({ id, title })
   }
 
-  // 기능2. 모달 클로즈
   const handleCloseModal = () => {
     setIsOpenModal('')
   }
 
-  // 기능3. 투두 삭제
   const handleTodoDelete = ({ id, title }) => {
     setTodoList(todoList.filter((el) => el.id !== id && el.title !== title))
     localStorage.removeItem(id)
     setIsOpenModal('')
   }
 
-  // 기능4. 투두 수정
   const handleTodoEdit = (item, inputValue) => {
     const { id } = item
     const elem = JSON.parse(JSON.stringify(todoList))
     const update = elem.map((el) => (el.id === id ? { ...el, title: inputValue } : el))
 
     setTodoList(update)
-
     handleCloseModal()
   }
 
@@ -58,8 +53,6 @@ function TodoList() {
   }
 
   const handleCloseModalFunction = (isCloseModal) => {
-    // eslint-disable-next-line no-console
-    //  console.log(isCloseModal)
     if (isCloseModal === true) {
       setIsOpenDeleteModal(false)
     }
@@ -87,8 +80,6 @@ function TodoList() {
         },
         ...prev.slice(targetIndex + 1),
       ]
-
-      console.log('newList:', newList)
 
       return newList
     })
@@ -132,8 +123,19 @@ function TodoList() {
             </button>
           </div>
           <div className={styles.todoListScroll}>
-            {filteredTodoList.map((todo) => (
-              <li key={`todo-${todo.id}`} className={`${styles.task} ${todo.hidden ? styles.hidden : ''}`}>
+            {filteredTodoList.map((todo, index) => (
+              <li
+                key={`todo-${todo.id}`}
+                data-position={index}
+                className={`${styles.task} ${todo.hidden ? styles.hidden : ''} ${
+                  grab && Number(grab.dataset.position) === index && styles.grabbing
+                }`}
+                draggable='true'
+                onDragStart={handleDragStart}
+                onDragOver={handleDragOver}
+                onDragEnd={handleDragEnd}
+                onDrop={handleOnDrop}
+              >
                 <div className={styles.checkboxWrapper}>
                   <input type='checkbox' checked={todo.done} data-id={todo.id} onChange={handleChange} />
                   <CheckIcon />
@@ -145,7 +147,7 @@ function TodoList() {
             ))}
           </div>
         </ul>
-        <button type='button' className={styles.addButton} onClick={handleAddClick} aria-label='Add button' />
+        <button type='button' className={styles.addButton} aria-label='Add button' onClick={handleAddClick} />
       </div>
       {openAddModal && <AddModal setOpenAddModal={setOpenAddModal} />}
       {isOpenModal && (
