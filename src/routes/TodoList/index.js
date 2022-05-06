@@ -22,7 +22,9 @@ function TodoList() {
   const { handleDragStart, handleDragOver, handleDragEnd, handleOnDrop, grab } = useDragDrop()
 
   useEffect(()=>{
-    setTodoList(JSON.parse(localStorage.getItem("todoList")))
+    const todolist = localStorage.getItem("todoList")
+    if(todolist) setTodoList(JSON.parse(localStorage.getItem("todoList")))
+    
   }, [setTodoList])
 
   const handleOpenModal = (id, title) => {

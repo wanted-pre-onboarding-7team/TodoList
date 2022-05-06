@@ -34,8 +34,8 @@ function Category({ categoryType, categoryColor, onClick }) {
     <button type='button' className={styles.category} data-title={categoryType} onClick={onClick}>
       <p className={styles.totalTasks}>{filteredTodoList.length} tasks</p>
       <p className={styles.title}>{makeUpperCaseFristChar(categoryType)}</p>
-      <div className={styles.range_wrapper}>
-        <div className={styles.range} style={{width:`${backgroundGradientText}%`, background:categoryColor}} />
+      <div className={styles.range_wrapper} style={{boxShadow: `${categoryColor} 0px 0px 0px px`}}>
+        <div className={styles.range} style={{'--persent':`${backgroundGradientText}%`, '--color':categoryColor}} />
       </div>
     </button>
   )
