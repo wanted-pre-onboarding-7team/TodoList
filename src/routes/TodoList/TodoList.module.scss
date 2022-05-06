@@ -17,6 +17,16 @@
     color: colors.$BIG_TITLE;
   }
 
+  .categories {
+    display: flex;
+    overflow-x: scroll;
+    box-shadow: 0 10px 20px 0 rgba(colors.$BLACK, 2%);
+
+    button {
+      margin-right: 12px;
+    }
+  }
+
   .tasksTitle {
     margin: 30px 0 24px;
     font-size: 12px;
