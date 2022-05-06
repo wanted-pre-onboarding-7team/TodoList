@@ -6,52 +6,57 @@ export const todoListState = atom({
     {
       id: 1,
       title: '계란 2판 사기',
-      done: false,
+      done: true,
+      category: 'business',
     },
     {
       id: 2,
       title: '맥북 프로 M1 Max CTO 버전 사기',
       done: false,
+      category: 'business',
     },
     {
       id: 3,
       title: '오늘의 TIL 작성하기',
       done: false,
+      category: 'business',
     },
     {
       id: 4,
-      title: '이번주 WIL 작성하기',
-      done: false,
+      title: 'TodoList 사이트 만들기',
+      done: true,
+      category: 'personal',
     },
     {
       id: 5,
-      title: '과제 리펙토링하기',
-      done: false,
+      title: 'TodoList 사이트 만들기',
+      done: true,
+      category: 'personal',
     },
     {
       id: 6,
-      title: 'JavaScript 알고리즘 풀기',
+      title: 'TodoList 사이트 만들기',
       done: false,
-    },
-    {
-      id: 7,
-      title: '사이드 프로젝트 하기',
-      done: false,
-    },
-    {
-      id: 8,
-      title: 'scss 문법',
-      done: false,
-    },
-    {
-      id: 9,
-      title: '무한 스크롤',
-      done: false,
-    },
-    {
-      id: 10,
-      title: 'localStorage 값 가져오기',
-      done: false,
+      category: 'personal',
     },
   ],
+})
+
+export const todoListCategory = atom({
+  key: 'todoListCategory',
+  default: 'all',
+})
+
+export const filteredTodoListState = selector({
+  key: 'filteredTodoListState',
+  get: ({ get }) => {
+    const todoList = get(todoListState)
+    const category = get(todoListCategory)
+
+    if (category === 'all') {
+      return todoList
+    }
+
+    return todoList.filter((item) => item.category === category)
+  },
 })

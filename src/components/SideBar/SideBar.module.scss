@@ -1,0 +1,11 @@
+.sideBarWrap {
+  position: absolute;
+  z-index: -1;
+  width: 100%;
+  height: 100%;
+  background-color: #0a235f;
+  border-radius: 60px; // 이거 주기 싫었는데 사이드바 닫혀있을때 파란선보임
+  .sideBar {
+    width: 70%;
+  }
+}

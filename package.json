@@ -7,7 +7,9 @@
     "@testing-library/react": "^13.1.1",
     "@testing-library/user-event": "^13.5.0",
     "classnames": "^2.3.1",
+    "compass-mixins": "^0.12.11",
     "gh-pages": "^3.2.3",
+    "prop-types": "^15.8.1",
     "react": "^18.1.0",
     "react-dom": "^18.1.0",
     "react-scripts": "5.0.1",
@@ -61,10 +63,13 @@
     "sass": "^1.51.0",
     "sass-loader": "^12.6.0",
     "style-loader": "^3.3.1",
-    "stylelint": "^14.8.1",
+    "stylelint": "^14.8.2",
     "stylelint-config-recess-order": "^3.0.0",
+    "stylelint-config-standard": "^25.0.0",
     "stylelint-config-standard-scss": "^3.0.0",
-    "stylelint-declaration-strict-value": "^1.8.0"
+    "stylelint-config-styled-components": "^0.1.1",
+    "stylelint-declaration-strict-value": "^1.8.0",
+    "stylelint-processor-styled-components": "^1.10.0"
   },
   "homepage": "https://wanted-pre-onboarding-7team.github.io/TodoList"
 }

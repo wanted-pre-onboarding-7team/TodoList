@@ -1,0 +1,11 @@
+@use '/src/styles/constants/colors';
+
+.categories {
+  display: flex;
+  overflow-x: scroll;
+  box-shadow: 0 10px 20px 0 rgba(colors.$BLACK, 2%);
+
+  div {
+    margin-right: 12px;
+  }
+}
