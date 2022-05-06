@@ -3,26 +3,28 @@
 @use '/src/styles/mixins/flexbox';
 @use '/src/styles/mixins/position';
 
-.app {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
-  background-color: #dee3f9;
+// 투두 움직일때 쓸 클래스
+.sideOpen {
+  -webkit-transform: scale(0.9);
+  transform: translateX(70%) scale(0.9);
 }
+
 .todoList {
   position: relative;
-  width: 360px;
   height: 720px;
-  padding: 120px 40px 40px;
   background-color: #fafbfe;
   border-radius: 60px;
+
+  transition: all ease-out 0.7s;
 
   h1 {
     color: colors.$BIG_TITLE;
     font-weight: 600;
     font-size: 32px;
   }
+
+  .centering {
+    padding: 120px 40px 40px;
 
   .tasksTopWrapper {
     @include flexbox.flexbox(center center);

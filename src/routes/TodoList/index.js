@@ -8,6 +8,8 @@ import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil'
 import { filteredTodoListState, todoListCategory, todoListState } from '../../atom/Todolist'
 import { CategoryType } from '../../atom/CategoryList'
 
+import SideBar from '../../components/SideBar'
+
 // const INIT_TODO = [
 //   {
 //     id: 1,
@@ -29,7 +31,11 @@ import { CategoryType } from '../../atom/CategoryList'
 function TodoList() {
   // const [todoList, setTodoList] = useState(INIT_TODO)
   const [todoList, setTodoList] = useRecoilState(todoListState)
+  const [openSide, setOpenSide] = useState(false)
   const [isOpenModal, setIsOpenModal] = useState()
+  const [isOpenDeleteModal, setIsOpenDeleteModal] = useState(false)
+  const setCategory = useSetRecoilState(todoListCategory)
+  const filteredTodoList = useRecoilValue(filteredTodoListState)
 
   // 기능1. 모달 오픈
   const handleOpenModal = (id, title) => {
@@ -57,9 +63,7 @@ function TodoList() {
     setTodoList(update)
 
     handleCloseModal()
-  const [isOpenDeleteModal, setIsOpenDeleteModal] = useState(false)
-  const setCategory = useSetRecoilState(todoListCategory)
-  const filteredTodoList = useRecoilValue(filteredTodoListState)
+
 
   const handleAddClick = () => {}
 
@@ -105,7 +109,15 @@ function TodoList() {
   }
 
   return (
-    <div className={styles.todoList}>
+    <div className={`${styles.todoList} ${openSide && styles.sideOpen}`}>
+      <button
+        type='button'
+        onClick={() => {
+          setOpenSide(!openSide)
+        }}
+      >
+        사이드버튼
+      </button>
       <div className={styles.centering}>
         <h1>Hi! this is your assignment.</h1>
         <p className={styles.tasksTitle}>Categories</p>
@@ -158,7 +170,6 @@ function TodoList() {
           type='button'
           className={styles.addButton}
           onClick={handleAddClick}
-          setIsOpenDeleteModal={setIsOpenDeleteModal}
           aria-label='Add button'
         />
       </div>
