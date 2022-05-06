@@ -2,6 +2,7 @@ import { useState } from 'react'
 import styles from './TodoList.module.scss'
 import Category from '../../components/Category'
 import { CheckIcon } from '../../assets/svgs'
+import DeleteAllModal from '../../components/DeleteAll'
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil'
 import { filteredTodoListState, todoListCategory, todoListState } from '../../atom/Todolist'
 import { CategoryType } from '../../atom/CategoryList'
@@ -27,11 +28,22 @@ import { CategoryType } from '../../atom/CategoryList'
 function TodoList() {
   // const [todoList, setTodoList] = useState(INIT_TODO)
   const [todoList, setTodoList] = useRecoilState(todoListState)
+  const [isOpenDeleteModal, setIsOpenDeleteModal] = useState(false)
   const setCategory = useSetRecoilState(todoListCategory)
   const filteredTodoList = useRecoilValue(filteredTodoListState)
 
-  const handleAddClick = (e) => {
-    // console.log('handleAddClick')
+  const handleAddClick = () => {}
+
+  const handleDeleteAllClick = () => {
+    setIsOpenDeleteModal(!isOpenDeleteModal)
+  }
+
+  const handleCloseModalFunction = (isCloseModal) => {
+    // eslint-disable-next-line no-console
+    //  console.log(isCloseModal)
+    if (isCloseModal === true) {
+      setIsOpenDeleteModal(false)
+    }
   }
 
   const handleCategoryClick = (e) => {
@@ -86,7 +98,17 @@ function TodoList() {
           ))}
         </div>
         <ul className={styles.tasks}>
-          <p className={styles.tasksTitle}>Today&apos;s</p>
+          <div className={styles.tasksTopWrapper}>
+            <p className={styles.tasksTitle}>Today&apos;s</p>
+            <button
+              type='button'
+              className={styles.deleteButton}
+              onClick={handleDeleteAllClick}
+              aria-label='Delete All TodoList button'
+            >
+              Delete All
+            </button>
+          </div>
           {filteredTodoList.map((todo) => (
             <li key={`todo-${todo.id}`} className={styles.task}>
               <div className={styles.checkboxWrapper}>
@@ -97,8 +119,15 @@ function TodoList() {
             </li>
           ))}
         </ul>
-        <button type='button' className={styles.addButton} onClick={handleAddClick} aria-label='Add button' />
+        <button
+          type='button'
+          className={styles.addButton}
+          onClick={handleAddClick}
+          setIsOpenDeleteModal={setIsOpenDeleteModal}
+          aria-label='Add button'
+        />
       </div>
+      {isOpenDeleteModal ? <DeleteAllModal handleCloseModalFunction={handleCloseModalFunction} /> : ''}
     </div>
   )
 }
