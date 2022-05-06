@@ -8,8 +8,6 @@ import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil'
 import { filteredTodoListState, todoListCategory, todoListState } from '../../atom/Todolist'
 import { CategoryType } from '../../atom/CategoryList'
 
-import SideBar from '../../components/SideBar'
-
 // const INIT_TODO = [
 //   {
 //     id: 1,
@@ -63,7 +61,7 @@ function TodoList() {
     setTodoList(update)
 
     handleCloseModal()
-
+  }
 
   const handleAddClick = () => {}
 
@@ -156,23 +154,19 @@ function TodoList() {
             </li>
           ))}
         </ul>
-        <button type='button' className={styles.addButton} aria-label='Add button' />
       </div>
-      {isOpenModal && (
-        <Detail
-          item={isOpenModal}
-          handleCloseModal={handleCloseModal}
-          handleTodoDelete={handleTodoDelete}
-          handleTodoEdit={handleTodoEdit}
-        />
-      )}
-        <button
-          type='button'
-          className={styles.addButton}
-          onClick={handleAddClick}
-          aria-label='Add button'
-        />
+      <div>
+        {isOpenModal && (
+          <Detail
+            item={isOpenModal}
+            handleCloseModal={handleCloseModal}
+            handleTodoDelete={handleTodoDelete}
+            handleTodoEdit={handleTodoEdit}
+          />
+        )}
+        <button type='button' className={styles.addButton} onClick={handleAddClick} aria-label='Add button' />
       </div>
+
       {isOpenDeleteModal ? <DeleteAllModal handleCloseModalFunction={handleCloseModalFunction} /> : ''}
     </div>
   )
