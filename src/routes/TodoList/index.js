@@ -61,34 +61,30 @@ function TodoList() {
   }
 
   return (
-    <div className={styles.todoListWrap}>
-      <SideBar />
-      {/* css모듈 여러개쓰려면 아래처럼 한번더 감싸주자 */}
-      <div className={`${styles.todoList} ${openSide && styles.sideOpen}`}>
-        <button
-          type='button'
-          onClick={() => {
-            setOpenSide(!openSide)
-          }}
-        >
-          사이드버튼
-        </button>
-        <div className={styles.centering}>
-          <h1>Hi! this is your assignment.</h1>
-          <ul className={styles.tasks}>
-            <p className={styles.tasksTitle}>Today&apos;s</p>
-            {todoList.map((todo) => (
-              <li key={`todo-${todo.id}`} className={styles.task}>
-                <div className={styles.checkboxWrapper}>
-                  <input type='checkbox' checked={todo.done} data-id={todo.id} onChange={handleChange} />
-                  <CheckIcon />
-                </div>
-                <p className={styles.title}>{todo.title}</p>
-              </li>
-            ))}
-          </ul>
-          <button type='button' className={styles.addButton} onClick={handleAddClick} aria-label='Add button' />
-        </div>
+    <div className={`${styles.todoList} ${openSide && styles.sideOpen}`}>
+      <button
+        type='button'
+        onClick={() => {
+          setOpenSide(!openSide)
+        }}
+      >
+        사이드버튼
+      </button>
+      <div className={styles.centering}>
+        <h1>Hi! this is your assignment.</h1>
+        <ul className={styles.tasks}>
+          <p className={styles.tasksTitle}>Today&apos;s</p>
+          {todoList.map((todo) => (
+            <li key={`todo-${todo.id}`} className={styles.task}>
+              <div className={styles.checkboxWrapper}>
+                <input type='checkbox' checked={todo.done} data-id={todo.id} onChange={handleChange} />
+                <CheckIcon />
+              </div>
+              <p className={styles.title}>{todo.title}</p>
+            </li>
+          ))}
+        </ul>
+        <button type='button' className={styles.addButton} onClick={handleAddClick} aria-label='Add button' />
       </div>
     </div>
   )
