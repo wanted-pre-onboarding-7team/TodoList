@@ -84,7 +84,11 @@
     }
   }
 
-  .addButton {
+  .grabbing {
+    border: 3px solid #526fff;
+  }
+
+  .task .addButton {
     @include position.absolute(auto 40px 40px auto);
     width: 66px;
     height: 66px;

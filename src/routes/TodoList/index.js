@@ -7,7 +7,7 @@ import useDragDrop from '../../hooks/useDragDrop'
 
 function TodoList() {
   const [todoList, setTodoList] = useRecoilState(todoListState)
-  const { handleDragStart, handleDragOver, handleDragEnd, handleOnDrop } = useDragDrop()
+  const { handleDragStart, handleDragOver, handleDragEnd, handleOnDrop, grab } = useDragDrop()
 
   const handleChange = (e) => {
     const { dataset, checked } = e.currentTarget
@@ -40,7 +40,7 @@ function TodoList() {
             <li
               key={`todo-${todo.id}`}
               data-position={index}
-              className={styles.task}
+              className={`${styles.task} ${grab && Number(grab.dataset.position) === index && styles.grabbing}`}
               draggable='true'
               onDragStart={handleDragStart}
               onDragOver={handleDragOver}

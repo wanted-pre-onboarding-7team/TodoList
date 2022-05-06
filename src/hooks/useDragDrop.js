@@ -32,7 +32,7 @@ const useDragDrop = () => {
     list[grabPosition] = list.splice(targetPosition, 1, list[grabPosition])[0]
     setTodoList(list)
   }
-  return { handleDragStart, handleDragEnd, handleDragOver, handleOnDrop }
+  return { handleDragStart, handleDragEnd, handleDragOver, handleOnDrop, grab }
 }
 
 export default useDragDrop
