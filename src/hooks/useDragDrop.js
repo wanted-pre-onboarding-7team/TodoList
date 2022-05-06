@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { useRecoilState } from 'recoil'
 import { todoListState } from '../atom/Todolist'
 
@@ -13,12 +13,14 @@ const useDragDrop = () => {
   const handleDragStart = (e) => {
     setGrab(e.currentTarget)
     e.currentTarget.classList.add('grabbing')
+    e.currentTarget.style.opacity = 0.5
     e.dataTransfer.effectAllowed = 'move'
     e.dataTransfer.setData('text/html', e.currentTarget)
   }
 
   const handleDragEnd = (e) => {
     e.currentTarget.classList.remove('grabbing')
+    e.currentTarget.style.opacity = ''
     e.dataTransfer.dropEffect = 'move'
     setGrab(null)
   }
@@ -28,10 +30,9 @@ const useDragDrop = () => {
     const targetPosition = Number(e.currentTarget.dataset.position)
     const list = [...todoList]
     list[grabPosition] = list.splice(targetPosition, 1, list[grabPosition])[0]
-
     setTodoList(list)
   }
-  return { handleDragStart, handleDragEnd, handleDragOver, handleOnDrop, grab }
+  return { handleDragStart, handleDragEnd, handleDragOver, handleOnDrop }
 }
 
 export default useDragDrop

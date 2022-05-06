@@ -7,11 +7,7 @@ import useDragDrop from '../../hooks/useDragDrop'
 
 function TodoList() {
   const [todoList, setTodoList] = useRecoilState(todoListState)
-  const { handleDragStart, handleDragOver, handleDragEnd, handleOnDrop, grab } = useDragDrop()
-
-  const handleAddClick = (e) => {
-    // console.log('handleAddClick')
-  }
+  const { handleDragStart, handleDragOver, handleDragEnd, handleOnDrop } = useDragDrop()
 
   const handleChange = (e) => {
     const { dataset, checked } = e.currentTarget
@@ -19,11 +15,7 @@ function TodoList() {
 
     setTodoList((prev) => {
       const targetIndex = prev.findIndex((todo) => todo.id === Number(id))
-      // const newListTest = [...prev]
 
-      // newListTest[targetIndex].done = checked
-
-      // console.log("newListTest", newListTest)
       const newList = [
         ...prev.slice(0, targetIndex),
         {
@@ -63,7 +55,7 @@ function TodoList() {
             </li>
           ))}
         </ul>
-        <button type='button' className={styles.addButton} onClick={handleAddClick} aria-label='Add button' />
+        <button type='button' className={styles.addButton} aria-label='Add button' />
       </div>
     </div>
   )
