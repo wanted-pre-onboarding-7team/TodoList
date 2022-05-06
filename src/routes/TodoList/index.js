@@ -2,12 +2,14 @@ import { useState } from 'react'
 import styles from './TodoList.module.scss'
 import Category from '../../components/Category'
 import { CheckIcon } from '../../assets/svgs'
+import AddModal from '../../components/AddTodo/AddModal'
 import SearchTodo from '../../components/SearchTodo'
 import Detail from '../../components/Detail/Detail'
 import DeleteAllModal from '../../components/DeleteAll'
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil'
 import { filteredTodoListState, todoListCategory, todoListState } from '../../atom/Todolist'
 import { CategoryType } from '../../atom/CategoryList'
+
 
 // const INIT_TODO = [
 //   {
@@ -30,6 +32,7 @@ import { CategoryType } from '../../atom/CategoryList'
 function TodoList() {
   // const [todoList, setTodoList] = useState(INIT_TODO)
   const [todoList, setTodoList] = useRecoilState(todoListState)
+  const [openAddModal, setOpenAddModal] = useState(false)
   const [openSide, setOpenSide] = useState(false)
   const [isOpenModal, setIsOpenModal] = useState()
   const [isOpenDeleteModal, setIsOpenDeleteModal] = useState(false)
@@ -64,7 +67,9 @@ function TodoList() {
     handleCloseModal()
   }
 
-  const handleAddClick = () => {}
+  const handleAddClick = () => {
+    setOpenAddModal(true)
+  }
 
   const handleDeleteAllClick = () => {
     setIsOpenDeleteModal(!isOpenDeleteModal)
@@ -80,7 +85,7 @@ function TodoList() {
 
   const handleCategoryClick = (e) => {
     const { title } = e.currentTarget.dataset
-
+    
     setCategory(() => title)
   }
 
@@ -102,7 +107,7 @@ function TodoList() {
       ]
 
       console.log('newList:', newList)
-
+      
       return newList
     })
   }
@@ -158,6 +163,7 @@ function TodoList() {
         </ul>
         <button type='button' className={styles.addButton} onClick={handleAddClick} aria-label='Add button' />
       </div>
+      {openAddModal && <AddModal setOpenAddModal={setOpenAddModal} />}
       {isOpenModal && (
         <Detail
           item={isOpenModal}

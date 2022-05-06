@@ -1,5 +1,8 @@
 export { ReactComponent as LogoImage } from './logo.svg'
 export { ReactComponent as CheckIcon } from './check.svg'
+export { ReactComponent as AddIcon } from './add.svg'
+export { ReactComponent as FlagIcon } from './flag.svg'
+export { ReactComponent as MoonIcon } from './moon.svg'
 export { ReactComponent as SearchIcon } from './search.svg'
 export { ReactComponent as EditIcon } from './edit.svg'
 export { ReactComponent as DeleteIcon } from './delete.svg'
