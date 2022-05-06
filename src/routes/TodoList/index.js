@@ -2,6 +2,7 @@ import { useState } from 'react'
 import styles from './TodoList.module.scss'
 import Category from '../../components/Category'
 import { CheckIcon } from '../../assets/svgs'
+import SearchTodo from '../../components/SearchTodo'
 import Detail from '../../components/Detail/Detail'
 import DeleteAllModal from '../../components/DeleteAll'
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil'
@@ -117,6 +118,7 @@ function TodoList() {
         사이드버튼
       </button>
       <div className={styles.centering}>
+        <SearchTodo />
         <h1>Hi! this is your assignment.</h1>
         <p className={styles.tasksTitle}>Categories</p>
         <div className={styles.categories}>
@@ -143,7 +145,7 @@ function TodoList() {
             </button>
           </div>
           {filteredTodoList.map((todo) => (
-            <li key={`todo-${todo.id}`} className={styles.task}>
+            <li key={`todo-${todo.id}`} className={`${styles.task} ${todo.hidden ? styles.hidden : ''}`}>
               <div className={styles.checkboxWrapper}>
                 <input type='checkbox' checked={todo.done} data-id={todo.id} onChange={handleChange} />
                 <CheckIcon />

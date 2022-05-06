@@ -1,0 +1,49 @@
+@use 'src/styles/constants/colors';
+@use 'src/styles/mixins/flexbox';
+@use 'src/styles/mixins/position';
+@use 'src/styles/mixins/animation';
+
+.searchTodo {
+  @include flexbox.flexbox(center, center);
+  @include position.absolute((5%, 0%, 0%));
+  width: 100%;
+  height: 50px;
+  padding: 10px 20px;
+
+  button {
+    @include position.absolute((0%, 80%));
+    @include position.posCenterY();
+    width: 30px;
+    height: 30px;
+
+    svg {
+      pointer-events: none;
+    }
+  }
+
+  .searchBarWrapper {
+    @include position.relative(0%);
+    position: relative;
+    width: 95%;
+    height: 40px;
+    overflow-x: hidden;
+
+    .searchBar {
+      @include position.absolute(0%);
+      @include animation.cubicBezier(0.3s);
+      width: 100%;
+      height: 100%;
+      padding: 10px 20px;
+      padding-right: 15%;
+      border: 2px solid colors.$GRAYA;
+      border-radius: 15px;
+    }
+
+    .folded {
+      left: 100%;
+    }
+    .unfolded {
+      left: 0%;
+    }
+  }
+}
