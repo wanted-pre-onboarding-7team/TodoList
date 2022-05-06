@@ -67,7 +67,7 @@ function TodoList() {
 
   const handleCategoryClick = (e) => {
     const { title } = e.currentTarget.dataset
-    
+
     setCategory(() => title)
   }
 
@@ -89,7 +89,7 @@ function TodoList() {
       ]
 
       console.log('newList:', newList)
-      
+
       return newList
     })
   }
@@ -131,17 +131,19 @@ function TodoList() {
               Delete All
             </button>
           </div>
-          {filteredTodoList.map((todo) => (
-            <li key={`todo-${todo.id}`} className={`${styles.task} ${todo.hidden ? styles.hidden : ''}`}>
-              <div className={styles.checkboxWrapper}>
-                <input type='checkbox' checked={todo.done} data-id={todo.id} onChange={handleChange} />
-                <CheckIcon />
-              </div>
-              <button type='button' onClick={() => handleOpenModal(todo.id, todo.title)}>
-                <p className={styles.title}>{todo.title}</p>
-              </button>
-            </li>
-          ))}
+          <div className={styles.todoListScroll}>
+            {filteredTodoList.map((todo) => (
+              <li key={`todo-${todo.id}`} className={`${styles.task} ${todo.hidden ? styles.hidden : ''}`}>
+                <div className={styles.checkboxWrapper}>
+                  <input type='checkbox' checked={todo.done} data-id={todo.id} onChange={handleChange} />
+                  <CheckIcon />
+                </div>
+                <button type='button' onClick={() => handleOpenModal(todo.id, todo.title)}>
+                  <p className={styles.title}>{todo.title}</p>
+                </button>
+              </li>
+            ))}
+          </div>
         </ul>
         <button type='button' className={styles.addButton} onClick={handleAddClick} aria-label='Add button' />
       </div>

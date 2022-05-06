@@ -67,6 +67,11 @@
       }
     }
 
+    .todoListScroll {
+      max-height: 400px;
+      overflow: scroll;
+    }
+
     .task {
       display: flex;
       align-items: center;
