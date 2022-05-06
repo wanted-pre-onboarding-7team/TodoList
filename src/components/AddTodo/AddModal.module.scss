@@ -98,6 +98,7 @@
       flex-direction: column;
 
       .categoryBtn {
+        $main-bg: attr(data-category);
         position: relative;
         width: 52px;
         height: 52px;
@@ -110,7 +111,7 @@
           @include position.middleBox;
           width: 50%;
           height: 50%;
-          border: 2px solid colors.$BLUE;
+          border: 2px solid #dee3f9;
           border-radius: 50%;
           content: '';
         }
@@ -118,17 +119,41 @@
         &::after {
           width: 25%;
           height: 25%;
-          background-color: colors.$BLUE;
+          background-color: #dee3f9;
         }
       }
 
+      .pickBusiness::after,
+      .pickBusiness::before {
+        background-color: colors.$PURPLE;
+        border: none;
+      }
+
+      .pickPersonal::after,
+      .pickPersonal::before {
+        background-color: colors.$PINK;
+        border: none;
+      }
+
       .categoryOptionBtn {
+        @include flexbox.flexbox(start);
         position: absolute;
+        top: 56px;
         width: 24px;
         height: 24px;
         background-color: colors.$PURPLE;
         border-radius: 50%;
         cursor: pointer;
+
+        p {
+          margin-left: 30px;
+          font-size: 18px;
+        }
+
+        + .categoryOptionBtn {
+          top: 100px;
+          background-color: colors.$PINK;
+        }
       }
     }
   }
