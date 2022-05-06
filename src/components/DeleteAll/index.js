@@ -17,6 +17,7 @@ function DeleteAllModal({ handleCloseModalFunction }) {
 
   const handleDeleteButtonClick = () => {
     setTodoList([])
+    localStorage.clear()
     handleCloseModalFunction(true)
   }
 
