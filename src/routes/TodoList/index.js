@@ -2,6 +2,7 @@ import { useState } from 'react'
 import styles from './TodoList.module.scss'
 import Category from '../../components/Category'
 import { CheckIcon } from '../../assets/svgs'
+import Detail from '../../components/Detail/Detail'
 import DeleteAllModal from '../../components/DeleteAll'
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil'
 import { filteredTodoListState, todoListCategory, todoListState } from '../../atom/Todolist'
@@ -28,6 +29,34 @@ import { CategoryType } from '../../atom/CategoryList'
 function TodoList() {
   // const [todoList, setTodoList] = useState(INIT_TODO)
   const [todoList, setTodoList] = useRecoilState(todoListState)
+  const [isOpenModal, setIsOpenModal] = useState()
+
+  // 기능1. 모달 오픈
+  const handleOpenModal = (id, title) => {
+    setIsOpenModal({ id, title })
+  }
+
+  // 기능2. 모달 클로즈
+  const handleCloseModal = () => {
+    setIsOpenModal('')
+  }
+
+  // 기능3. 투두 삭제
+  const handleTodoDelete = ({ id, title }) => {
+    setTodoList(todoList.filter((el) => el.id !== id && el.title !== title))
+    localStorage.removeItem(id)
+    setIsOpenModal('')
+  }
+
+  // 기능4. 투두 수정
+  const handleTodoEdit = (item, inputValue) => {
+    const { id } = item
+    const elem = JSON.parse(JSON.stringify(todoList))
+    const update = elem.map((el) => (el.id === id ? { ...el, title: inputValue } : el))
+
+    setTodoList(update)
+
+    handleCloseModal()
   const [isOpenDeleteModal, setIsOpenDeleteModal] = useState(false)
   const setCategory = useSetRecoilState(todoListCategory)
   const filteredTodoList = useRecoilValue(filteredTodoListState)
@@ -58,12 +87,6 @@ function TodoList() {
 
     setTodoList((prev) => {
       const targetIndex = prev.findIndex((todo) => todo.id === Number(id))
-      // const newListTest = [...prev]
-
-      // newListTest[targetIndex].done = checked
-
-      // console.log("newListTest", newListTest)
-
       const newList = [
         ...prev.slice(0, targetIndex),
         {
@@ -115,10 +138,22 @@ function TodoList() {
                 <input type='checkbox' checked={todo.done} data-id={todo.id} onChange={handleChange} />
                 <CheckIcon />
               </div>
-              <p className={styles.title}>{todo.title}</p>
+              <button type='button' onClick={() => handleOpenModal(todo.id, todo.title)}>
+                <p className={styles.title}>{todo.title}</p>
+              </button>
             </li>
           ))}
         </ul>
+        <button type='button' className={styles.addButton} aria-label='Add button' />
+      </div>
+      {isOpenModal && (
+        <Detail
+          item={isOpenModal}
+          handleCloseModal={handleCloseModal}
+          handleTodoDelete={handleTodoDelete}
+          handleTodoEdit={handleTodoEdit}
+        />
+      )}
         <button
           type='button'
           className={styles.addButton}

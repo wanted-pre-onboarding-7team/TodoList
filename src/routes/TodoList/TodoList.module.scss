@@ -3,6 +3,13 @@
 @use '/src/styles/mixins/flexbox';
 @use '/src/styles/mixins/position';
 
+.app {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background-color: #dee3f9;
+}
 .todoList {
   position: relative;
   width: 360px;
