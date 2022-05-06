@@ -1,26 +1,24 @@
 import { useState } from 'react'
-import { useSetRecoilState, useResetRecoilState } from 'recoil'
-import { SearchIcon } from '../assets/svgs'
+import { useSetRecoilState } from 'recoil'
 import { todoListState } from '../atom/Todolist'
 
 import styles from './SearchTodo.module.scss'
+import { SearchIcon } from '../assets/svgs'
 
 function SearchTodo() {
   const [isSearchOpened, setIsSearchOpen] = useState(false)
-  const [serachWord, setSearchWord] = useState('')
+  const [searchInput, setSearchInput] = useState('')
 
   const setTodoList = useSetRecoilState(todoListState)
-  const resetTodoList = useResetRecoilState(todoListState)
 
-  const ToggleSearchBarHandler = () => {
+  const toggleSearchBarHandler = () => {
     setIsSearchOpen((current) => !current)
   }
 
-  const filteringTodoList = (value) => {
-    resetTodoList()
+  const filteringTodoList = (inputValue) => {
     setTodoList((current) =>
-      current.filter((todo) => {
-        return todo.title.includes(value)
+      current.map((todo) => {
+        return todo.title.includes(inputValue) ? { ...todo, hidden: false } : { ...todo, hidden: true }
       })
     )
   }
@@ -28,7 +26,7 @@ function SearchTodo() {
   const searchInputChangeHandler = (e) => {
     const inputValue = e.target.value
 
-    setSearchWord(inputValue)
+    setSearchInput(inputValue)
     filteringTodoList(inputValue)
   }
 
@@ -37,11 +35,11 @@ function SearchTodo() {
       <div className={styles.searchBarWrapper}>
         <input
           className={`${styles.searchBar} ${isSearchOpened ? styles.unfolded : styles.folded}`}
-          value={serachWord}
+          value={searchInput}
           onChange={searchInputChangeHandler}
         />
       </div>
-      <button type='button' onClick={ToggleSearchBarHandler}>
+      <button type='button' onClick={toggleSearchBarHandler}>
         <SearchIcon />
       </button>
     </div>
