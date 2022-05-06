@@ -27,6 +27,18 @@ export const todoListState = atom({
       done: true,
       category: 'personal',
     },
+    {
+      id: 5,
+      title: 'TodoList 사이트 만들기',
+      done: true,
+      category: 'personal',
+    },
+    {
+      id: 6,
+      title: 'TodoList 사이트 만들기',
+      done: false,
+      category: 'personal',
+    },
   ],
 })
 

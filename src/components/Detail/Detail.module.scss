@@ -1,0 +1,112 @@
+@use '/src/styles/constants/colors';
+@use '/src/styles/constants/levels';
+@use '/src/styles/mixins/flexbox';
+@use '/src/styles/mixins/position';
+
+.detailWrap {
+  position: absolute;
+  width: 360px;
+  height: 720px;
+  padding: 240px 40px 40px;
+  background-color: #fafbfe;
+  border-radius: 60px;
+  top: 0;
+  z-index: 11;
+
+  svg {
+    width: 25px;
+    height: 25px;
+    opacity: 0.2;
+    cursor: pointer;
+  }
+
+  .title {
+    margin-bottom: 30px;
+    caret-color: colors.$BLUE;
+    font-size: 30px;
+  }
+
+  .closeButton {
+    @include position.absolute(40px 30px auto auto);
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    border: 2px solid colors.$GRAYD;
+    transition: 0.2s;
+
+    &:hover {
+      border: 2px solid colors.$GRAY3;
+    }
+
+    &::before,
+    &::after {
+      @include position.middleBox;
+      width: 18px;
+      height: 2px;
+      content: '';
+      background-color: colors.$GRAY3;
+    }
+
+    &::after {
+      transform: translate(-50%, -50%) rotate(45deg);
+    }
+
+    &::before {
+      transform: translate(-50%, -50%) rotate(-45deg);
+    }
+  }
+
+  .todayBtnWrap {
+    @include flexbox.flexbox(center center);
+
+    .todayButton {
+      @include flexbox.flexbox(center center);
+      justify-content: space-between;
+      width: 120px;
+      height: 50px;
+      padding: 0 20px;
+      color: colors.$GRAYA;
+      border-radius: 30px;
+      border: 2px solid colors.$GRAYE;
+    }
+
+    .recordButton {
+      position: relative;
+      width: 45px;
+      height: 45px;
+      margin-left: 10px;
+      border-radius: 50%;
+      border: 2px solid colors.$GRAYE;
+
+      &::before,
+      &::after {
+        @include position.posCenter;
+        display: block;
+        content: '';
+        border-radius: 50%;
+      }
+
+      &::after {
+        width: 20px;
+        height: 20px;
+        border: 2px solid colors.$BLUE;
+      }
+
+      &::before {
+        width: 12px;
+        height: 12px;
+        background-color: colors.$BLUE;
+      }
+    }
+  }
+
+  .iconWrap {
+    @include flexbox.flexbox(center center);
+    justify-content: center;
+    margin-top: 80px;
+
+    svg {
+      margin: 0 20px;
+    }
+  }
+}
