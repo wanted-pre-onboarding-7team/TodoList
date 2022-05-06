@@ -25,6 +25,21 @@
 
   .centering {
     padding: 120px 40px 40px;
+
+  .tasksTopWrapper {
+    @include flexbox.flexbox(center center);
+    justify-content: space-between;
+    width: 100%;
+  }
+
+  .categories {
+    display: flex;
+    overflow-x: scroll;
+    box-shadow: 0 10px 20px 0 rgba(colors.$BLACK, 2%);
+
+    button {
+      margin-right: 12px;
+    }
   }
 
   .tasksTitle {
@@ -34,6 +49,21 @@
     font-size: 12px;
     letter-spacing: 0.05em;
     text-transform: uppercase;
+  }
+
+  .deleteButton {
+    margin: 30px 0 24px;
+    color: #8f99bf;
+    font-weight: 600;
+    font-size: 12px;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: 0.3s;
+
+    &:hover {
+      color: rgba(colors.$BLUE, 50%);
+    }
   }
 
   .task {
@@ -95,13 +125,13 @@
   }
 
   .addButton {
-    @include position.absolute(auto 40px 40px auto);
     width: 66px;
     height: 66px;
     background-color: colors.$BLUE;
     border-radius: 50%;
     box-shadow: 0 10px 20px 0 rgba(colors.$BLACK, 15%);
     transition: 0.2s;
+    @include position.absolute(auto 40px 40px auto);
 
     &:hover {
       background-color: rgba(colors.$BLUE, 90%);
