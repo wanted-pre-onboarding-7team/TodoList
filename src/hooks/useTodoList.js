@@ -10,6 +10,7 @@ const useTodoList = () => {
       title: inputValue,
       done: false,
       category: categoryPick,
+      hidden: false,
     }
     const newTodoList = todoList.concat(newValue)
     setTodoList(newTodoList)
