@@ -26,5 +26,5 @@
 .expandBubble {
   @include position.absolute(0);
   background-color: colors.$WHITE;
-  animation: expand 0.5s forwards;
+  animation: expand 0.3s forwards;
 }
