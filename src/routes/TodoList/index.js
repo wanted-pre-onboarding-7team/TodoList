@@ -11,8 +11,7 @@ import { filteredTodoListState, todoListCategory, todoListState } from '../../at
 import { CategoryType } from '../../atom/CategoryList'
 import useDragDrop from '../../hooks/useDragDrop'
 import useTodoList from '../../hooks/useTodoList'
-import ToastUpdateMessage from '../../components/Toast/ToastUpdateMessage'
-import ToastDeleteMessage from '../../components/Toast/ToastDeleteMessage'
+import ToastMessage from '../../components/Toast/ToastMessage'
 
 function TodoList() {
   const [todoList, setTodoList] = useRecoilState(todoListState)
@@ -147,8 +146,8 @@ function TodoList() {
         />
       )}
       {isOpenDeleteModal ? <DeleteAllModal handleCloseModalFunction={handleCloseModalFunction} /> : ''}
-      {showUpdateMsg && <ToastUpdateMessage />}
-      {showDeleteMsg && <ToastDeleteMessage />}
+      {showUpdateMsg && <ToastMessage message='수정' />}
+      {showDeleteMsg && <ToastMessage message='삭제' />}
     </div>
   )
 }
