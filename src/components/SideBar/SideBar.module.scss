@@ -7,60 +7,63 @@
   width: 100%;
   height: 100%;
   border-radius: 60px; // 이거 주기 싫었는데 사이드바 닫혀있을때 파란선보임
-  background-color:#fff;
+  background-color: #fff;
   @include position.absolute(0);
 
   .sideBar {
     @include position.relative(0);
     width: 65%;
     height: 100%;
-    z-index: 1; 
+    z-index: 1;
     padding: 50px 0 0 45px;
-    
+
     .sideClose {
-      color:#fff;
-      font-size: 40px;
       float: right;
+      width: 50px;
+
+      .closeIcon {
+        path {
+          fill: #444;
+        }
+        polygon {
+          fill: #888;
+        }
+      }
     }
-    
-    .circularWrap{
-      width:100px;
-      margin-top:30px;
+
+    .circularWrap {
+      width: 90px;
+      margin-top: 30px;
       border-radius: 50%;
       overflow: hidden;
-      > div {
-        background:#fff !important;
-      }
-      .circularProgressbar{
-        @include position.relative(0);
-        width:100px;
-        height:100px;
-        z-index: 1;
+      background: #fff;
+      text-align: center;
 
-        
+      .circularProgressbar {
+        @include position.relative(0);
+        width: 100px;
+        height: 100px;
+        z-index: 1;
       }
 
       .circularProgressImg {
         position: relative;
         z-index: 0;
       }
-
-      
     }
 
     .userName {
-      color:#fff;
-      margin-top:30px;
+      color: #fff;
+      margin-top: 30px;
       font-size: 30px;
     }
     .sideList {
-      padding-top:30px;
+      padding-top: 30px;
 
       li {
-        text-align:center;
-        color:#fff;
-        padding:10px 0;
-      cursor: pointer;
+        color: #ccc;
+        padding: 10px 0;
+        cursor: pointer;
       }
     }
   }
