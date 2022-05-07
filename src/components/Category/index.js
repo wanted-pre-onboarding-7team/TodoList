@@ -3,21 +3,20 @@ import styles from './Category.module.scss'
 import { useRecoilValue } from 'recoil'
 import { todoListState } from '../../atom/Todolist'
 import PropTypes from 'prop-types'
-import { makeColorWidthText } from '../../utils'
+import { makeColorWidthText, filterTodoList, checkFilteredTodoList } from '../../utils'
 
 function Category({ categoryType, categoryColor, onClick }) {
   const todolist = useRecoilValue(todoListState)
 
   const filteredTodoList = useMemo(() => {
-    const result = categoryType === 'all' ? todolist : todolist.filter((item) => item.category === categoryType)
-    return result
+    return filterTodoList(categoryType, todolist)
   }, [categoryType, todolist])
 
   const donefilteredTodoListLength = useMemo(() => {
-    return filteredTodoList.filter((item) => item.done === true).length
+    return checkFilteredTodoList(filteredTodoList)
   }, [filteredTodoList])
 
-  const backgroundGradientText = useMemo(() => {
+  const backgroundColorText = useMemo(() => {
     return makeColorWidthText(filteredTodoList.length, donefilteredTodoListLength)
   }, [donefilteredTodoListLength, filteredTodoList])
 
@@ -26,7 +25,7 @@ function Category({ categoryType, categoryColor, onClick }) {
       <p className={styles.totalTasks}>{filteredTodoList.length} tasks</p>
       <p className={styles.title}>{categoryType}</p>
       <div className={styles.rangeWrapper}>
-        <div className={styles.range} style={{ '--persent': `${backgroundGradientText}%`, '--color': categoryColor }} />
+        <div className={styles.range} style={{ '--percent': `${backgroundColorText}%`, '--color': categoryColor }} />
       </div>
     </button>
   )
