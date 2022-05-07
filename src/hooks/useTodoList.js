@@ -1,12 +1,13 @@
 import { useRecoilState } from 'recoil'
 import { todoListState } from '../atom/Todolist'
+import uuid from 'react-uuid'
 
 const useTodoList = () => {
   const [todoList, setTodoList] = useRecoilState(todoListState)
 
   const addTodoList = (inputValue, categoryPick) => {
     const newValue = {
-      id: todoList.length + 1,
+      id: uuid(),
       title: inputValue,
       done: false,
       category: categoryPick,
