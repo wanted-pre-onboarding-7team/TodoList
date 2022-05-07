@@ -2,14 +2,21 @@
 @use '/src/styles/constants/levels';
 @use '/src/styles/mixins/flexbox';
 @use '/src/styles/mixins/position';
+@use '/src/styles/mixins/visual';
+
+// 투두 움직일때 쓸 클래스
+.sideOpen {
+  -webkit-transform: scale(0.9);
+  transform: translateX(70%) scale(0.9);
+}
 
 .todoList {
   position: relative;
-  width: 360px;
   height: 720px;
-  padding: 120px 40px 40px;
   background-color: #fafbfe;
   border-radius: 60px;
+
+  transition: all ease-out 0.7s;
 
   h1 {
     color: colors.$BIG_TITLE;
@@ -17,98 +24,146 @@
     font-size: 32px;
   }
 
-  .tasksTitle {
-    margin: 30px 0 24px;
-    color: colors.$TASKS_TITLE;
-    font-weight: 600;
-    font-size: 12px;
-    letter-spacing: 0.05em;
-    text-transform: uppercase;
-  }
+  .centering {
+    padding: 120px 40px 40px;
 
-  .task {
-    display: flex;
-    align-items: center;
-    height: 72px;
-    line-height: 72px;
-    background-color: colors.$WHITE;
-    border-radius: 32px;
-    box-shadow: 0 10px 20px 0 rgba(colors.$BLACK, 2%);
-
-    + .task {
-      margin-top: 18px;
+    .tasksTopWrapper {
+      @include flexbox.flexbox(center center);
+      justify-content: space-between;
+      width: 100%;
     }
 
-    .checkboxWrapper {
-      @include flexbox.flexbox(center center);
-      position: relative;
-      width: 28px;
-      height: 28px;
-      margin: 0 24px;
+    .categories {
+      display: flex;
+      overflow-x: scroll;
+      box-shadow: 0 10px 20px 0 rgba(colors.$BLACK, 2%);
 
-      svg {
-        @include position.middleBox;
-        z-index: levels.$CHECK_ICON;
-        color: colors.$WHITE;
-        opacity: 0;
-        transition: 0.2s;
-        pointer-events: none;
+      button {
+        margin-right: 12px;
       }
     }
 
-    input[type='checkbox'] {
-      @include position.middleBox;
-      z-index: levels.$CHECK_BOX;
-      width: 28px;
-      height: 28px;
-      border: 2px solid colors.$BLUE;
-      border-radius: 50%;
+    .tasksTitle {
+      margin: 30px 0 24px;
+      color: colors.$TASKS_TITLE;
+      font-weight: 600;
+      font-size: 12px;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .deleteButton {
+      margin: 30px 0 24px;
+      color: #8f99bf;
+      font-weight: 600;
+      font-size: 12px;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
       cursor: pointer;
-      transition: 0.2s;
+      transition: 0.3s;
 
-      &:checked {
-        background-color: colors.$BLUE;
-        border: 0;
+      &:hover {
+        color: rgba(colors.$BLUE, 50%);
+      }
+    }
 
-        ~ svg {
-          opacity: 1;
+    .todoListScroll {
+      max-height: 400px;
+      overflow: scroll;
+    }
+
+    .grabbing {
+      border: 3px solid #526fff;
+    }
+
+    .task {
+      display: flex;
+      align-items: center;
+      height: 72px;
+      line-height: 72px;
+      background-color: colors.$WHITE;
+      border-radius: 32px;
+      box-shadow: 0 10px 20px 0 rgba(colors.$BLACK, 2%);
+
+      + .task {
+        margin-top: 18px;
+      }
+
+      .checkboxWrapper {
+        @include flexbox.flexbox(center center);
+        position: relative;
+        width: 28px;
+        height: 28px;
+        margin: 0 24px;
+
+        svg {
+          @include position.middleBox;
+          z-index: levels.$CHECK_ICON;
+          color: colors.$WHITE;
+          opacity: 0;
+          transition: 0.2s;
+          pointer-events: none;
         }
       }
+
+      input[type='checkbox'] {
+        @include position.middleBox;
+        z-index: levels.$CHECK_BOX;
+        width: 28px;
+        height: 28px;
+        border: 2px solid colors.$BLUE;
+        border-radius: 50%;
+        cursor: pointer;
+        transition: 0.2s;
+
+        &:checked {
+          background-color: colors.$BLUE;
+          border: 0;
+
+          ~ svg {
+            opacity: 1;
+          }
+        }
+      }
+
+      .title {
+        overflow: hidden;
+        color: colors.$TASK_ITEM_TITLE;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+      }
     }
 
-    .title {
-      overflow: hidden;
-      color: colors.$TASK_ITEM_TITLE;
-      white-space: nowrap;
-      text-overflow: ellipsis;
+    .addButton {
+      width: 66px;
+      height: 66px;
+      background-color: colors.$BLUE;
+      border-radius: 50%;
+      box-shadow: 0 10px 20px 0 rgba(colors.$BLACK, 15%);
+      transition: 0.2s;
+      @include position.absolute(auto 40px 40px auto);
+
+      &:hover {
+        background-color: rgba(colors.$BLUE, 90%);
+      }
+
+      &::before,
+      &::after {
+        @include position.middleBox;
+        width: 20px;
+        height: 2px;
+        background-color: colors.$WHITE;
+        content: '';
+      }
+
+      &::after {
+        transform: translate(-50%, -50%) rotate(90deg);
+        transform-origin: center;
+      }
     }
   }
+}
 
-  .addButton {
-    @include position.absolute(auto 40px 40px auto);
-    width: 66px;
-    height: 66px;
-    background-color: colors.$BLUE;
-    border-radius: 50%;
-    box-shadow: 0 10px 20px 0 rgba(colors.$BLACK, 15%);
-    transition: 0.2s;
-
-    &:hover {
-      background-color: rgba(colors.$BLUE, 90%);
-    }
-
-    &::before,
-    &::after {
-      @include position.middleBox;
-      width: 20px;
-      height: 2px;
-      background-color: colors.$WHITE;
-      content: '';
-    }
-
-    &::after {
-      transform: translate(-50%, -50%) rotate(90deg);
-      transform-origin: center;
-    }
-  }
+.hidden {
+  @include visual.hidden;
 }
