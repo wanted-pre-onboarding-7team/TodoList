@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react'
 import styles from './TodoList.module.scss'
 import Category from '../../components/Category'
-import { CheckIcon } from '../../assets/svgs'
 import AddModal from '../../components/AddTodo/AddModal'
 import SearchTodo from '../../components/SearchTodo/SearchTodo'
 import Detail from '../../components/Detail/Detail'
@@ -12,6 +11,8 @@ import { CategoryType } from '../../atom/CategoryList'
 import useDragDrop from '../../hooks/useDragDrop'
 import useTodoList from '../../hooks/useTodoList'
 import ToastMessage from '../../components/Toast/ToastMessage'
+import cx from 'classnames'
+import TodoCheck from '../../components/TodoCheck/todoCheck'
 
 function TodoList() {
   const [todoList, setTodoList] = useRecoilState(todoListState)
@@ -30,6 +31,7 @@ function TodoList() {
     showUpdateMsg,
     showDeleteMsg,
   } = useTodoList()
+  const inputCheked = todoList && todoList.find((item) => item.done)
 
   useEffect(() => {
     const todolist = localStorage.getItem('todoList')
@@ -56,9 +58,16 @@ function TodoList() {
     setCategory(() => title)
   }
 
+  useEffect(() => {
+    localStorage.removeItem(todoList)
+    localStorage.setItem('todoList', JSON.stringify(todoList))
+  }, [inputCheked, todoList])
+
   const handleChange = (e) => {
     const { dataset, checked } = e.currentTarget
     const { id } = dataset
+    localStorage.removeItem(todoList)
+    localStorage.setItem('todoList', JSON.stringify(todoList))
 
     setTodoList((prev) => {
       const targetIndex = prev.findIndex((todo) => todo.id === Number(id))
@@ -128,12 +137,9 @@ function TodoList() {
                 onDragEnd={handleDragEnd}
                 onDrop={handleOnDrop}
               >
-                <div className={styles.checkboxWrapper}>
-                  <input type='checkbox' checked={todo.done} data-id={todo.id} onChange={handleChange} />
-                  <CheckIcon />
-                </div>
+                <TodoCheck checked={todo.done} onChange={handleChange} todo={todo} />
                 <button type='button' onClick={() => handleOpenModal(todo.id, todo.title)}>
-                  <p className={styles.title}>{todo.title}</p>
+                  <p className={cx(styles.title, { [styles.show]: todo.done })}>{todo.title}</p>
                 </button>
               </li>
             ))}
