@@ -25,14 +25,19 @@
     
     .circularWrap{
       width:100px;
-      padding-top:30px;
-
+      margin-top:30px;
+      border-radius: 50%;
+      overflow: hidden;
+      > div {
+        background:#fff !important;
+      }
       .circularProgressbar{
         @include position.relative(0);
         width:100px;
         height:100px;
-        color:black;
         z-index: 1;
+
+        
       }
 
       .circularProgressImg {
