@@ -1,17 +1,32 @@
 import { useState } from 'react'
 import PropTypes from 'prop-types'
 import useTodoList from '../../hooks/useTodoList'
+import { CategoryType } from '../../atom/CategoryList'
+import Swal from 'sweetalert2'
 
 import ExpandBubble from './ExpandBubble'
 
-import cx from 'classnames'
 import styles from './AddModal.module.scss'
 import { CalendarIcon, AddIcon, FlagIcon, MoonIcon } from '../../assets/svgs'
 
 function AddModal({ setOpenAddModal }) {
   const [inputValue, setInputValue] = useState('')
   const [categoryPick, setCategoryPick] = useState('')
+  const [idx, incrementIndex] = useState(0)
+  const [color, setColor] = useState('#dee3f9')
   const { addTodoList } = useTodoList()
+
+  const checkEmptyInput = () => {
+    if (!inputValue || !categoryPick) {
+      Swal.fire({
+        title: 'Error!',
+        text: 'Please check value',
+        icon: 'error',
+      })
+      return true
+    }
+    return false
+  }
 
   const handleClose = () => {
     setOpenAddModal(false)
@@ -22,13 +37,21 @@ function AddModal({ setOpenAddModal }) {
   }
 
   const handleAddBtnClick = () => {
-    if (!inputValue || !categoryPick) return // alert eslint에서 눈에 안띈다고 커스텀 alert 사용권장
+    if (checkEmptyInput()) return
     addTodoList(inputValue, categoryPick)
-    setInputValue('')
+    setOpenAddModal(false)
   }
 
-  const handleCategoryClick = (pick) => {
-    setCategoryPick(pick)
+  const handleChangeCategory = () => {
+    if (idx >= CategoryType.length) {
+      setCategoryPick(CategoryType[0].title)
+      setColor(CategoryType[0].color)
+      incrementIndex(1)
+    } else {
+      setCategoryPick(CategoryType[idx].title)
+      setColor(CategoryType[idx].color)
+      incrementIndex(idx + 1)
+    }
   }
 
   return (
@@ -42,35 +65,16 @@ function AddModal({ setOpenAddModal }) {
             <CalendarIcon />
             <p>Today</p>
           </button>
-          <div className={styles.categoryWrap}>
-            <button
-              type='button'
-              className={cx(
-                styles.categoryBtn,
-                { [styles.pickBusiness]: categoryPick === 'business' },
-                { [styles.pickPersonal]: categoryPick === 'personal' }
-              )}
-              aria-label='Category button'
-            />
-            <button
-              type='button'
-              className={styles.categoryOptionBtn}
-              aria-label='Business button'
-              onClick={() => handleCategoryClick('business')}
-            >
-              <p>business</p>
-            </button>
-            <button
-              type='button'
-              className={styles.categoryOptionBtn}
-              aria-label='Personal button'
-              onClick={() => handleCategoryClick('personal')}
-            >
-              <p>personal</p>
-            </button>
-          </div>
+          <button
+            type='button'
+            onClick={handleChangeCategory}
+            style={{ '--color': color }}
+            className={styles.categoryBtn}
+            aria-label='Category button'
+          />
+          <p className={styles.categoryTitle}>{categoryPick.toLocaleUpperCase()}</p>
         </div>
-        <div className={styles.IconWrap}>
+        <div className={styles.iconWrap}>
           <AddIcon />
           <FlagIcon />
           <MoonIcon />
