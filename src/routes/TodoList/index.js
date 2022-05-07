@@ -6,7 +6,7 @@ import SearchTodo from '../../components/SearchTodo/SearchTodo'
 import Detail from '../../components/Detail/Detail'
 import DeleteAllModal from '../../components/DeleteAll'
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil'
-import { filteredTodoListState, todoListCategory, todoListState } from '../../atom/Todolist'
+import { filteredTodoListState, todoListCategory, todoListState, openSidebar } from '../../atom/Todolist'
 import { CategoryType } from '../../atom/CategoryList'
 import useDragDrop from '../../hooks/useDragDrop'
 import useTodoList from '../../hooks/useTodoList'
@@ -14,10 +14,13 @@ import ToastMessage from '../../components/Toast/ToastMessage'
 import cx from 'classnames'
 import TodoCheck from '../../components/TodoCheck/todoCheck'
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faBars, faCircleChevronLeft } from '@fortawesome/free-solid-svg-icons'
+
 function TodoList() {
   const [todoList, setTodoList] = useRecoilState(todoListState)
   const [openAddModal, setOpenAddModal] = useState(false)
-  const [openSide, setOpenSide] = useState(false)
+  const [openSide, setOpenSide] = useRecoilState(openSidebar)
   const [isOpenDeleteModal, setIsOpenDeleteModal] = useState(false)
   const setCategory = useSetRecoilState(todoListCategory)
   const filteredTodoList = useRecoilValue(filteredTodoListState)
@@ -88,15 +91,16 @@ function TodoList() {
 
   return (
     <div className={`${styles.todoList} ${openSide && styles.sideOpen}`}>
-      <button
-        type='button'
-        onClick={() => {
-          setOpenSide(!openSide)
-        }}
-      >
-        사이드버튼
-      </button>
       <div className={styles.centering}>
+        <button
+          type='button'
+          className={styles.openSideBtn}
+          onClick={() => {
+            setOpenSide(!openSide)
+          }}
+        >
+          <FontAwesomeIcon icon={faBars} />
+        </button>
         <SearchTodo />
         <h1>Hi! this is your assignment.</h1>
         <p className={styles.tasksTitle}>Categories</p>
@@ -111,39 +115,37 @@ function TodoList() {
             />
           ))}
         </div>
-        <ul className={styles.tasks}>
-          <div className={styles.tasksTopWrapper}>
-            <p className={styles.tasksTitle}>Today&apos;s</p>
-            <button
-              type='button'
-              className={styles.deleteButton}
-              onClick={handleDeleteAllClick}
-              aria-label='Delete All TodoList button'
+        <div className={styles.tasksTopWrapper}>
+          <p className={styles.tasksTitle}>Today&apos;s</p>
+          <button
+            type='button'
+            className={styles.deleteButton}
+            onClick={handleDeleteAllClick}
+            aria-label='Delete All TodoList button'
+          >
+            Delete All
+          </button>
+        </div>
+        <ul className={styles.todoListScroll}>
+          {filteredTodoList.map((todo, index) => (
+            <li
+              key={`todo-${todo.id}`}
+              data-position={index}
+              className={`${styles.task} ${todo.hidden ? styles.hidden : ''} ${
+                grab && Number(grab.dataset.position) === index && styles.grabbing
+              }`}
+              draggable='true'
+              onDragStart={handleDragStart}
+              onDragOver={handleDragOver}
+              onDragEnd={handleDragEnd}
+              onDrop={handleOnDrop}
             >
-              Delete All
-            </button>
-          </div>
-          <div className={styles.todoListScroll}>
-            {filteredTodoList.map((todo, index) => (
-              <li
-                key={`todo-${todo.id}`}
-                data-position={index}
-                className={`${styles.task} ${todo.hidden ? styles.hidden : ''} ${
-                  grab && Number(grab.dataset.position) === index && styles.grabbing
-                }`}
-                draggable='true'
-                onDragStart={handleDragStart}
-                onDragOver={handleDragOver}
-                onDragEnd={handleDragEnd}
-                onDrop={handleOnDrop}
-              >
-                <TodoCheck checked={todo.done} onChange={handleChange} todo={todo} />
-                <button type='button' onClick={() => handleOpenModal(todo.id, todo.title)}>
-                  <p className={cx(styles.title, { [styles.show]: todo.done })}>{todo.title}</p>
-                </button>
-              </li>
-            ))}
-          </div>
+              <TodoCheck checked={todo.done} onChange={handleChange} todo={todo} />
+              <button type='button' onClick={() => handleOpenModal(todo.id, todo.title)}>
+                <p className={cx(styles.title, { [styles.show]: todo.done })}>{todo.title}</p>
+              </button>
+            </li>
+          ))}
         </ul>
         <button type='button' className={styles.addButton} aria-label='Add button' onClick={handleAddClick} />
       </div>

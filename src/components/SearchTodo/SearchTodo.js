@@ -66,7 +66,7 @@ function SearchTodo() {
           onKeyDown={inputKeyHandler}
         />
       </div>
-      <button type='button' onClick={toggleSearchBarHandler}>
+      <button type='button' onClick={toggleSearchBarHandler} className={styles.searchBtn}>
         <SearchIcon />
       </button>
     </div>
