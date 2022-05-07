@@ -52,7 +52,7 @@
       width: 5px;
       height: 2px;
       content: '';
-      background-color: colors.$PURPLE;
+      background-color: var(--color);
       transform: translate(-50%, -50%) rotate(90deg);
       transform-origin: center;
     }
