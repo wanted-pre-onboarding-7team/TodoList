@@ -10,39 +10,17 @@ import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil'
 import { filteredTodoListState, todoListCategory, todoListState } from '../../atom/Todolist'
 import { CategoryType } from '../../atom/CategoryList'
 import useDragDrop from '../../hooks/useDragDrop'
+import useTodoList from '../../hooks/useTodoList'
 
 function TodoList() {
   const [todoList, setTodoList] = useRecoilState(todoListState)
   const [openAddModal, setOpenAddModal] = useState(false)
   const [openSide, setOpenSide] = useState(false)
-  const [isOpenModal, setIsOpenModal] = useState()
   const [isOpenDeleteModal, setIsOpenDeleteModal] = useState(false)
   const setCategory = useSetRecoilState(todoListCategory)
   const filteredTodoList = useRecoilValue(filteredTodoListState)
   const { handleDragStart, handleDragOver, handleDragEnd, handleOnDrop, grab } = useDragDrop()
-
-  const handleOpenModal = (id, title) => {
-    setIsOpenModal({ id, title })
-  }
-
-  const handleCloseModal = () => {
-    setIsOpenModal('')
-  }
-
-  const handleTodoDelete = ({ id, title }) => {
-    setTodoList(todoList.filter((el) => el.id !== id && el.title !== title))
-    localStorage.removeItem(id)
-    setIsOpenModal('')
-  }
-
-  const handleTodoEdit = (item, inputValue) => {
-    const { id } = item
-    const elem = JSON.parse(JSON.stringify(todoList))
-    const update = elem.map((el) => (el.id === id ? { ...el, title: inputValue } : el))
-
-    setTodoList(update)
-    handleCloseModal()
-  }
+  const { handleOpenModal, handleCloseModal, handleTodoDelete, handleTodoEdit, isOpenModal } = useTodoList()
 
   const handleAddClick = () => {
     setOpenAddModal(true)
