@@ -2,6 +2,7 @@
 @use '/src/styles/constants/levels';
 @use '/src/styles/mixins/flexbox';
 @use '/src/styles/mixins/position';
+@use '/src/styles/mixins/animation';
 
 .background {
   @include position.middleBox;
@@ -12,23 +13,12 @@
   border-radius: 60px;
 }
 
-@keyframes fadeInDown {
-  0% {
-    transform: translateY(-30px);
-    opacity: 0;
-  }
-  to {
-    transform: translateY(0px);
-    opacity: 1;
-  }
-}
-
 .addModal {
   z-index: levels.$ADD_MODAL;
   width: 100%;
   height: 100%;
   padding: 120px 50px 44px;
-  box-shadow: 0 0px 24px 8px rgba(colors.$WHITE, 95%);
+  box-shadow: 0 0 24px 8px rgba(colors.$WHITE, 95%);
 
   & > * {
     opacity: 0;
@@ -37,8 +27,7 @@
 
   @for $i from 1 through 5 {
     & > *:nth-child(#{$i}) {
-      -webkit-animation-delay: ($i * 0.1) + 0.2s;
-      animation-delay: ($i * 0.1) + 0.2s;
+      animation-delay: ($i * 0.05) + 0.2s;
     }
   }
 
@@ -55,10 +44,11 @@
       @include position.middleBox;
       width: 20px;
       height: 2px;
+      content: '';
       background-color: colors.$GRAY2;
       transform: translate(-50%, -50%) rotate(45deg);
-      content: '';
     }
+
     &::after {
       transform: translate(-50%, -50%) rotate(-45deg);
     }
@@ -76,89 +66,54 @@
   }
 
   .optionWrap {
-    display: flex;
-    margin: 48px 0px;
+    @include flexbox.flexbox('start');
+    margin: 48px 0;
 
     .calendarBtn {
       @include flexbox.flexbox('between');
       width: 128px;
       height: 52px;
-      margin: 0 12px 0 -8px;
       padding: 0 24px 0 16px;
-      color: colors.$GRAYA;
+      margin: 0 12px 0 -8px;
       font-weight: 600;
+      color: colors.$GRAYA;
+      cursor: pointer;
       border: 2px solid #dee3f9;
       border-radius: 100px;
-      cursor: pointer;
     }
 
-    .categoryWrap {
-      @include flexbox.flexbox;
+    .categoryBtn {
       position: relative;
-      flex-direction: column;
+      width: 52px;
+      height: 52px;
+      cursor: pointer;
+      border: 2px solid #dee3f9;
+      border-radius: 50%;
 
-      .categoryBtn {
-        $main-bg: attr(data-category);
-        position: relative;
-        width: 52px;
-        height: 52px;
-        border: 2px solid #dee3f9;
+      &::before,
+      &::after {
+        @include position.middleBox;
+        width: 50%;
+        height: 50%;
+        content: '';
+        border: 2px solid var(--color);
         border-radius: 50%;
-        cursor: pointer;
-
-        &::before,
-        &::after {
-          @include position.middleBox;
-          width: 50%;
-          height: 50%;
-          border: 2px solid #dee3f9;
-          border-radius: 50%;
-          content: '';
-        }
-
-        &::after {
-          width: 25%;
-          height: 25%;
-          background-color: #dee3f9;
-        }
       }
 
-      .pickBusiness::after,
-      .pickBusiness::before {
-        background-color: colors.$PURPLE;
-        border: none;
+      &::after {
+        width: 25%;
+        height: 25%;
+        background-color: var(--color);
       }
+    }
 
-      .pickPersonal::after,
-      .pickPersonal::before {
-        background-color: colors.$PINK;
-        border: none;
-      }
-
-      .categoryOptionBtn {
-        @include flexbox.flexbox(start);
-        position: absolute;
-        top: 56px;
-        width: 24px;
-        height: 24px;
-        background-color: colors.$PURPLE;
-        border-radius: 50%;
-        cursor: pointer;
-
-        p {
-          margin-left: 30px;
-          font-size: 18px;
-        }
-
-        + .categoryOptionBtn {
-          top: 100px;
-          background-color: colors.$PINK;
-        }
-      }
+    .categoryTitle {
+      margin-left: 14px;
+      font-size: 12px;
     }
   }
 
-  .IconWrap {
+  .iconWrap {
     @include flexbox.flexbox;
     @include position.relative(50px 0);
 
@@ -195,8 +150,8 @@
     &::after {
       margin-left: 10px;
       font-size: 24px;
-      transform: scaleY(0.5) rotate(-90deg);
       content: '>';
+      transform: scaleY(0.5) rotate(-90deg);
     }
   }
 }
