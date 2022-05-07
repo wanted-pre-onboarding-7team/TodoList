@@ -3,38 +3,30 @@ import styles from './Category.module.scss'
 import { useRecoilValue } from 'recoil'
 import { todoListState } from '../../atom/Todolist'
 import PropTypes from 'prop-types'
-
-function makeGradientColorText(color, total, done) {
-  const colorPersent = isNaN((done / total) * 100) ? 0 : (done / total) * 100
-  const result = `linear-gradient(to right, ${color} 0%, ${color} ${colorPersent}%, #aaaaaa ${colorPersent}%, #aaaaaa 100%)`
-  return result
-}
-
-function makeUpperCaseFristChar(text) {
-  return text.replace(/\b[a-z]/, (letter) => letter.toUpperCase())
-}
+import { makeColorWidthText, filterTodoList, checkFilteredTodoList } from '../../utils'
 
 function Category({ categoryType, categoryColor, onClick }) {
   const todolist = useRecoilValue(todoListState)
 
   const filteredTodoList = useMemo(() => {
-    const result = categoryType === 'all' ? todolist : todolist.filter((item) => item.category === categoryType)
-    return result
+    return filterTodoList(categoryType, todolist)
   }, [categoryType, todolist])
 
   const donefilteredTodoListLength = useMemo(() => {
-    return filteredTodoList.filter((item) => item.done === true).length
+    return checkFilteredTodoList(filteredTodoList)
   }, [filteredTodoList])
 
-  const backgroundGradientText = useMemo(() => {
-    return makeGradientColorText(categoryColor, filteredTodoList.length, donefilteredTodoListLength)
-  }, [donefilteredTodoListLength, filteredTodoList, categoryColor])
+  const backgroundColorText = useMemo(() => {
+    return makeColorWidthText(filteredTodoList.length, donefilteredTodoListLength)
+  }, [donefilteredTodoListLength, filteredTodoList])
 
   return (
     <button type='button' className={styles.category} data-title={categoryType} onClick={onClick}>
       <p className={styles.totalTasks}>{filteredTodoList.length} tasks</p>
-      <p className={styles.title}>{makeUpperCaseFristChar(categoryType)}</p>
-      <div className={styles.range} style={{ background: backgroundGradientText, transition: '1s' }} />
+      <p className={styles.title}>{categoryType}</p>
+      <div className={styles.rangeWrapper}>
+        <div className={styles.range} style={{ '--percent': `${backgroundColorText}%`, '--color': categoryColor }} />
+      </div>
     </button>
   )
 }

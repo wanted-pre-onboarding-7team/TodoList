@@ -31,6 +31,7 @@ const useDragDrop = () => {
     const list = [...todoList]
     list[grabPosition] = list.splice(targetPosition, 1, list[grabPosition])[0]
     setTodoList(list)
+    localStorage.setItem('todoList', JSON.stringify(list))
   }
   return { handleDragStart, handleDragEnd, handleDragOver, handleOnDrop, grab }
 }

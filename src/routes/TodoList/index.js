@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import styles from './TodoList.module.scss'
 import Category from '../../components/Category'
 import { CheckIcon } from '../../assets/svgs'
@@ -30,6 +30,35 @@ function TodoList() {
     showUpdateMsg,
     showDeleteMsg,
   } = useTodoList()
+
+  useEffect(()=>{
+    const todolist = localStorage.getItem("todoList")
+    if(todolist) setTodoList(JSON.parse(localStorage.getItem("todoList")))
+    
+  }, [setTodoList])
+
+  const handleOpenModal = (id, title) => {
+    setIsOpenModal({ id, title })
+  }
+
+  const handleCloseModal = () => {
+    setIsOpenModal('')
+  }
+
+  const handleTodoDelete = ({ id, title }) => {
+    setTodoList(todoList.filter((el) => el.id !== id && el.title !== title))
+    localStorage.removeItem(id)
+    setIsOpenModal('')
+  }
+
+  const handleTodoEdit = (item, inputValue) => {
+    const { id } = item
+    const elem = JSON.parse(JSON.stringify(todoList))
+    const update = elem.map((el) => (el.id === id ? { ...el, title: inputValue } : el))
+
+    setTodoList(update)
+    handleCloseModal()
+  }
 
   const handleAddClick = () => {
     setOpenAddModal(true)
