@@ -1,11 +1,6 @@
-import { useState, useEffect, useCallback } from 'react'
 import styles from './TodoCheck.module.scss'
 import { CheckIcon } from '../../assets/svgs'
-import { useRecoilState } from 'recoil'
-import { todoListState } from '../../atom/Todolist'
-import cx from 'classnames'
 import PropTypes from 'prop-types'
-import { CategoryType } from '../../atom/CategoryList'
 
 function TodoCheck({ todo, checked, onChange }) {
   return (
