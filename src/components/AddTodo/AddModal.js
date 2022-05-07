@@ -2,6 +2,7 @@ import { useState } from 'react'
 import PropTypes from 'prop-types'
 import useTodoList from '../../hooks/useTodoList'
 import { CategoryType } from '../../atom/CategoryList'
+import Swal from 'sweetalert2'
 
 import ExpandBubble from './ExpandBubble'
 
@@ -15,6 +16,18 @@ function AddModal({ setOpenAddModal }) {
   const [color, setColor] = useState('#dee3f9')
   const { addTodoList } = useTodoList()
 
+  const checkEmptyInput = () => {
+    if (!inputValue || !categoryPick) {
+      Swal.fire({
+        title: 'Error!',
+        text: 'Please check value',
+        icon: 'error',
+      })
+      return true
+    }
+    return false
+  }
+
   const handleClose = () => {
     setOpenAddModal(false)
   }
@@ -24,6 +37,7 @@ function AddModal({ setOpenAddModal }) {
   }
 
   const handleAddBtnClick = () => {
+    if (checkEmptyInput()) return
     addTodoList(inputValue, categoryPick)
     setOpenAddModal(false)
   }
