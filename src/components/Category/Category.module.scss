@@ -14,22 +14,22 @@
   box-shadow: 0 10px 20px 0 rgba(colors.$BLACK, 2%);
 
   .totalTasks {
-    color: colors.$GRAYA;
     font-size: 10px;
+    color: colors.$GRAYA;
   }
 
   .title {
     height: 32px;
-    line-height: 32px;
     font-size: 18px;
     font-weight: 600;
+    line-height: 32px;
   }
 
   .range {
     width: 120px;
     height: 2px;
     margin-top: 15px;
-    border-radius: 2px;
     background: linear-gradient(to right, colors.$BLUE 0%, colors.$BLUE 30%, colors.$GRAYD 30%, colors.$GRAYD 100%);
+    border-radius: 2px;
   }
 }

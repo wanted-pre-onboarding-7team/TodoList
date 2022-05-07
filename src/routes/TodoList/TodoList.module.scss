@@ -24,7 +24,7 @@
   }
 
   .centering {
-    padding: 120px 40px 40px;
+    padding: 60px 40px 40px;
 
     .tasksTopWrapper {
       @include flexbox.flexbox(center center);
@@ -51,11 +51,13 @@
       letter-spacing: 0.05em;
     }
 
+    $DD: #8f99bf;
+
     .deleteButton {
       margin: 30px 0 24px;
       font-size: 12px;
       font-weight: 600;
-      color: #8f99bf;
+      color: $DD;
       text-transform: uppercase;
       letter-spacing: 0.05em;
       cursor: pointer;
@@ -67,7 +69,7 @@
     }
 
     .todoListScroll {
-      max-height: 400px;
+      max-height: 350px;
       overflow: scroll;
     }
 
@@ -88,48 +90,15 @@
         margin-top: 18px;
       }
 
-      .checkboxWrapper {
-        @include flexbox.flexbox(center center);
-        position: relative;
-        width: 28px;
-        height: 28px;
-        margin: 0 24px;
-
-        svg {
-          @include position.middleBox;
-          z-index: levels.$CHECK_ICON;
-          color: colors.$WHITE;
-          pointer-events: none;
-          opacity: 0;
-          transition: 0.2s;
-        }
-      }
-
-      input[type='checkbox'] {
-        @include position.middleBox;
-        z-index: levels.$CHECK_BOX;
-        width: 28px;
-        height: 28px;
-        cursor: pointer;
-        border: 2px solid colors.$BLUE;
-        border-radius: 50%;
-        transition: 0.2s;
-
-        &:checked {
-          background-color: colors.$BLUE;
-          border: 0;
-
-          ~ svg {
-            opacity: 1;
-          }
-        }
-      }
-
       .title {
         overflow: hidden;
         color: colors.$TASK_ITEM_TITLE;
         text-overflow: ellipsis;
         white-space: nowrap;
+      }
+
+      .show {
+        text-decoration: line-through;
       }
     }
 

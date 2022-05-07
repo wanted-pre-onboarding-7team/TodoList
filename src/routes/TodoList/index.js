@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import styles from './TodoList.module.scss'
 import Category from '../../components/Category'
 import { CheckIcon } from '../../assets/svgs'
@@ -10,6 +10,8 @@ import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil'
 import { filteredTodoListState, todoListCategory, todoListState } from '../../atom/Todolist'
 import { CategoryType } from '../../atom/CategoryList'
 import useDragDrop from '../../hooks/useDragDrop'
+import cx from 'classnames'
+import TodoCheck from '../../components/TodoCheck/TodoCheck'
 
 function TodoList() {
   const [todoList, setTodoList] = useRecoilState(todoListState)
@@ -20,6 +22,7 @@ function TodoList() {
   const setCategory = useSetRecoilState(todoListCategory)
   const filteredTodoList = useRecoilValue(filteredTodoListState)
   const { handleDragStart, handleDragOver, handleDragEnd, handleOnDrop, grab } = useDragDrop()
+  const inputCheked = todoList && todoList.find((item) => item.done)
 
   const handleOpenModal = (id, title) => {
     setIsOpenModal({ id, title })
@@ -64,9 +67,16 @@ function TodoList() {
     setCategory(() => title)
   }
 
+  useEffect(() => {
+    localStorage.removeItem(todoList)
+    localStorage.setItem('todoList', JSON.stringify(todoList))
+  }, [inputCheked, todoList])
+
   const handleChange = (e) => {
     const { dataset, checked } = e.currentTarget
     const { id } = dataset
+    localStorage.removeItem(todoList)
+    localStorage.setItem('todoList', JSON.stringify(todoList))
 
     setTodoList((prev) => {
       const targetIndex = prev.findIndex((todo) => todo.id === Number(id))
@@ -136,12 +146,9 @@ function TodoList() {
                 onDragEnd={handleDragEnd}
                 onDrop={handleOnDrop}
               >
-                <div className={styles.checkboxWrapper}>
-                  <input type='checkbox' checked={todo.done} data-id={todo.id} onChange={handleChange} />
-                  <CheckIcon />
-                </div>
+                <TodoCheck checked={todo.done} onChange={handleChange} todo={todo} />
                 <button type='button' onClick={() => handleOpenModal(todo.id, todo.title)}>
-                  <p className={styles.title}>{todo.title}</p>
+                  <p className={cx(styles.title, { [styles.show]: todo.done })}>{todo.title}</p>
                 </button>
               </li>
             ))}
