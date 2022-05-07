@@ -10,16 +10,26 @@ import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil'
 import { filteredTodoListState, todoListCategory, todoListState } from '../../atom/Todolist'
 import { CategoryType } from '../../atom/CategoryList'
 import useDragDrop from '../../hooks/useDragDrop'
+import useTodoList from '../../hooks/useTodoList'
+import ToastMessage from '../../components/Toast/ToastMessage'
 
 function TodoList() {
   const [todoList, setTodoList] = useRecoilState(todoListState)
   const [openAddModal, setOpenAddModal] = useState(false)
   const [openSide, setOpenSide] = useState(false)
-  const [isOpenModal, setIsOpenModal] = useState()
   const [isOpenDeleteModal, setIsOpenDeleteModal] = useState(false)
   const setCategory = useSetRecoilState(todoListCategory)
   const filteredTodoList = useRecoilValue(filteredTodoListState)
   const { handleDragStart, handleDragOver, handleDragEnd, handleOnDrop, grab } = useDragDrop()
+  const {
+    handleOpenModal,
+    handleCloseModal,
+    handleTodoDelete,
+    handleTodoEdit,
+    isOpenModal,
+    showUpdateMsg,
+    showDeleteMsg,
+  } = useTodoList()
 
   useEffect(()=>{
     const todolist = localStorage.getItem("todoList")
@@ -165,6 +175,8 @@ function TodoList() {
         />
       )}
       {isOpenDeleteModal ? <DeleteAllModal handleCloseModalFunction={handleCloseModalFunction} /> : ''}
+      {showUpdateMsg && <ToastMessage message='수정' />}
+      {showDeleteMsg && <ToastMessage message='삭제' />}
     </div>
   )
 }
