@@ -60,3 +60,8 @@ export const filteredTodoListState = selector({
     return todoList.filter((item) => item.category === category)
   },
 })
+
+export const openSidebar = atom({
+  key: 'openSidebar',
+  default: false,
+})

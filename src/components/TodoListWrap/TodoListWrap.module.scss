@@ -1,8 +1,8 @@
 .todoListWrap {
-    position: relative;
-    width: 360px;
-    overflow: hidden;
-    background-color: #fff;
-    border-radius: 60px;
-    transform: translateZ(0); // 사파리에서 border-radius hidden 안먹는 버그 땜에 넣어둠
+  position: relative;
+  width: 360px;
+  overflow: hidden;
+  background-color: #fff;
+  border-radius: 60px;
+  transform: translateZ(0); // 사파리에서 border-radius hidden 안먹는 버그 땜에 넣어둠
 }

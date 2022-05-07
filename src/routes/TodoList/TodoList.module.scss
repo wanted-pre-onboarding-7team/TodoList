@@ -12,18 +12,27 @@
 
 .todoList {
   position: relative;
+  z-index: 5;
   height: 720px;
+  overflow: hidden;
   background-color: #fafbfe;
+  -moz-border-radius: 60px;
+  -webkit-border-radius: 60px;
   border-radius: 60px;
-
   transition: all ease-out 0.7s;
-
   h1 {
     color: colors.$BIG_TITLE;
     font-weight: 600;
     font-size: 32px;
   }
-
+  .openSideBtn {
+    position: absolute;
+    top: 43px;
+    left: 38px;
+    z-index: 1;
+    color: #909acc;
+    font-size: 30px;
+  }
   .centering {
     padding: 120px 40px 40px;
 

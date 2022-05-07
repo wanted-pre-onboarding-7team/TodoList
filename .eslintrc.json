@@ -20,11 +20,10 @@
   "rules": {
     "arrow-body-style": "off",
     "semi": ["warn", "never"],
+    //"react/function-component-definition": ["warn", { "namedComponents": "arrow-function" }],
+    "react/function-component-definition": "warn",
     "react/jsx-one-expression-per-line": "off",
-    "react/jsx-filename-extension": [
-      "error",
-      { "extensions": [".js", ".jsx"] }
-    ],
+    "react/jsx-filename-extension": ["error", { "extensions": [".js", ".jsx"] }],
     "react/jsx-indent": "warn",
     "react/jsx-props-no-spreading": "off",
     "react/no-array-index-key": "warn",
@@ -55,10 +54,7 @@
     "@typescript-eslint/no-non-null-assertion": "off",
     "@typescript-eslint/no-unsafe-member-access": "off",
     "@typescript-eslint/no-unsafe-assignment": "off",
-    "@typescript-eslint/no-unused-vars": [
-      "warn",
-      { "argsIgnorePattern": "^_" }
-    ],
+    "@typescript-eslint/no-unused-vars": ["warn", { "argsIgnorePattern": "^_" }],
     "prefer-const": ["warn"],
     "prefer-destructuring": ["error", { "object": true, "array": false }],
     "lines-between-class-members": "off",

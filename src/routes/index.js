@@ -9,8 +9,8 @@ function App() {
     <RecoilRoot>
       <div className={styles.app}>
         <TodoListWrap>
-          <SideBar />
           <TodoList />
+          <SideBar />
         </TodoListWrap>
       </div>
     </RecoilRoot>
