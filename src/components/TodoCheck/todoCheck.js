@@ -20,15 +20,11 @@ function TodoCheck({ todo, onChange }) {
 export default TodoCheck
 
 TodoCheck.propTypes = {
-  todo: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.number, PropTypes.string])),
+  todo: PropTypes.shape({
+    id: PropTypes.string,
+    title: PropTypes.string,
+    done: PropTypes.bool,
+    category: PropTypes.string,
+  }),
   onChange: PropTypes.func,
 }
-// TodoCheck.propTypes = {
-//   todo: PropTypes.shape({
-//     id: PropTypes.string,
-//     title: PropTypes.string,
-//     done: PropTypes.bool,
-//     category: PropTypes.string,
-//   }),
-//   onChange: PropTypes.func,
-// }
