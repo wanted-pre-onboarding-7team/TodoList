@@ -6,7 +6,7 @@
 
 // 투두 움직일때 쓸 클래스
 .sideOpen {
-  -webkit-transform: scale(0.9);
+  transform: scale(0.9);
   transform: translateX(70%) scale(0.9);
 }
 
@@ -55,7 +55,7 @@
       margin: 30px 0 24px;
       font-size: 12px;
       font-weight: 600;
-      color: #8f99bf;
+      color: colors.$TASKS_TITLE;
       text-transform: uppercase;
       letter-spacing: 0.05em;
       cursor: pointer;
@@ -111,9 +111,9 @@
         z-index: levels.$CHECK_BOX;
         width: 28px;
         height: 28px;
+        cursor: pointer;
         border: 2px solid colors.$BLUE;
         border-radius: 50%;
-        cursor: pointer;
         transition: 0.2s;
 
         &:checked {
@@ -152,8 +152,8 @@
         @include position.middleBox;
         width: 20px;
         height: 2px;
-        background-color: colors.$WHITE;
         content: '';
+        background-color: colors.$WHITE;
       }
 
       &::after {

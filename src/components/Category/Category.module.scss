@@ -14,22 +14,47 @@
   box-shadow: 0 10px 20px 0 rgba(colors.$BLACK, 2%);
 
   .totalTasks {
-    color: colors.$GRAYA;
     font-size: 10px;
+    color: colors.$GRAYA;
   }
 
   .title {
     height: 32px;
-    line-height: 32px;
     font-size: 18px;
     font-weight: 600;
+    line-height: 32px;
+    text-transform: capitalize;
   }
 
-  .range {
+  .rangeWrapper {
+    position: relative;
     width: 120px;
     height: 2px;
     margin-top: 15px;
+    background: colors.$GRAYD;
     border-radius: 2px;
-    background: linear-gradient(to right, colors.$BLUE 0%, colors.$BLUE 30%, colors.$GRAYD 30%, colors.$GRAYD 100%);
+    box-shadow: rgba(165, 203, 247, 30%) 0 0 0 2px;
+    transition: 1s cubic-bezier(0.93, -0.26, 1, 1);
+  }
+
+  .range {
+    position: absolute;
+    width: var(--percent);
+    height: 2px;
+    background: var(--color);
+    border-radius: 2px;
+    box-shadow: rgba(165, 203, 247, 30%) 0 0 0 1.5px;
+    transition: 1s cubic-bezier(0.93, -0.26, 1, 1);
+
+    &::after {
+      position: absolute;
+      left: 100%;
+      width: 5px;
+      height: 2px;
+      content: '';
+      background-color: var(--color);
+      transform: translate(-50%, -50%) rotate(90deg);
+      transform-origin: center;
+    }
   }
 }
