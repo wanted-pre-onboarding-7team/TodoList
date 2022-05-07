@@ -19,7 +19,8 @@ function TodoList() {
   const [isOpenDeleteModal, setIsOpenDeleteModal] = useState(false)
   const setCategory = useSetRecoilState(todoListCategory)
   const filteredTodoList = useRecoilValue(filteredTodoListState)
-  const { handleDragStart, handleDragOver, handleDragEnd, handleOnDrop, grab } = useDragDrop()
+  const { handleDragStart, handleDragOver, handleDragEnd, handleOnDrop, handleDragEnter, handleDragLeave, grab } =
+    useDragDrop()
 
   const handleOpenModal = (id, title) => {
     setIsOpenModal({ id, title })

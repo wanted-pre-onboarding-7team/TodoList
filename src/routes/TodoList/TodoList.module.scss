@@ -15,13 +15,12 @@
   height: 720px;
   background-color: #fafbfe;
   border-radius: 60px;
-
   transition: all ease-out 0.7s;
 
   h1 {
-    color: colors.$BIG_TITLE;
-    font-weight: 600;
     font-size: 32px;
+    font-weight: 600;
+    color: colors.$BIG_TITLE;
   }
 
   .centering {
@@ -45,20 +44,20 @@
 
     .tasksTitle {
       margin: 30px 0 24px;
-      color: colors.$TASKS_TITLE;
-      font-weight: 600;
       font-size: 12px;
-      letter-spacing: 0.05em;
+      font-weight: 600;
+      color: colors.$TASKS_TITLE;
       text-transform: uppercase;
+      letter-spacing: 0.05em;
     }
 
     .deleteButton {
       margin: 30px 0 24px;
-      color: #8f99bf;
-      font-weight: 600;
       font-size: 12px;
-      letter-spacing: 0.05em;
+      font-weight: 600;
+      color: #8f99bf;
       text-transform: uppercase;
+      letter-spacing: 0.05em;
       cursor: pointer;
       transition: 0.3s;
 
@@ -73,6 +72,7 @@
     }
 
     .grabbing {
+      cursor: grabbing;
       border: 3px solid #526fff;
     }
 
@@ -100,9 +100,9 @@
           @include position.middleBox;
           z-index: levels.$CHECK_ICON;
           color: colors.$WHITE;
+          pointer-events: none;
           opacity: 0;
           transition: 0.2s;
-          pointer-events: none;
         }
       }
 
@@ -129,8 +129,8 @@
       .title {
         overflow: hidden;
         color: colors.$TASK_ITEM_TITLE;
-        white-space: nowrap;
         text-overflow: ellipsis;
+        white-space: nowrap;
       }
     }
 
