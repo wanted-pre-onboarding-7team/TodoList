@@ -4,37 +4,37 @@ export const todoListState = atom({
   key: 'todoListState',
   default: [
     {
-      id: 1,
+      id: "1",
       title: '계란 2판 사기',
       done: true,
       category: 'business',
     },
     {
-      id: 2,
+      id: "2",
       title: '맥북 프로 M1 Max CTO 버전 사기',
       done: false,
       category: 'business',
     },
     {
-      id: 3,
+      id: "3",
       title: '오늘의 TIL 작성하기',
       done: false,
       category: 'business',
     },
     {
-      id: 4,
+      id: "4",
       title: 'TodoList 사이트 만들기',
       done: true,
       category: 'personal',
     },
     {
-      id: 5,
+      id: "5",
       title: 'TodoList 사이트 만들기',
       done: true,
       category: 'personal',
     },
     {
-      id: 6,
+      id: "6",
       title: 'TodoList 사이트 만들기',
       done: false,
       category: 'personal',

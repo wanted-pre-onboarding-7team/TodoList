@@ -71,7 +71,7 @@ function TodoList() {
     localStorage.setItem('todoList', JSON.stringify(todoList))
 
     setTodoList((prev) => {
-      const targetIndex = prev.findIndex((todo) => todo.id === Number(id))
+      const targetIndex = prev.findIndex((todo) => todo.id === id)
       const newList = [
         ...prev.slice(0, targetIndex),
         {
@@ -138,7 +138,7 @@ function TodoList() {
               onDragEnd={handleDragEnd}
               onDrop={handleOnDrop}
             >
-              <TodoCheck checked={todo.done} onChange={handleChange} todo={todo} />
+              <TodoCheck onChange={handleChange} todo={todo} />
               <button type='button' onClick={() => handleOpenModal(todo.id, todo.title)}>
                 <p className={cx(styles.title, { [styles.show]: todo.done })}>{todo.title}</p>
               </button>
