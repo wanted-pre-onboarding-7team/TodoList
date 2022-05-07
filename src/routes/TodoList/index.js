@@ -14,9 +14,6 @@ import ToastMessage from '../../components/Toast/ToastMessage'
 import cx from 'classnames'
 import TodoCheck from '../../components/TodoCheck/todoCheck'
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faBars, faCircleChevronLeft } from '@fortawesome/free-solid-svg-icons'
-
 function TodoList() {
   const [todoList, setTodoList] = useRecoilState(todoListState)
   const [openAddModal, setOpenAddModal] = useState(false)
@@ -99,7 +96,7 @@ function TodoList() {
             setOpenSide(!openSide)
           }}
         >
-          <FontAwesomeIcon icon={faBars} />
+          버튼
         </button>
         <SearchTodo />
         <h1>Hi! this is your assignment.</h1>

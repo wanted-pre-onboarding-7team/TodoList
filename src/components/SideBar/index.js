@@ -3,8 +3,6 @@ import styles from './SideBar.module.scss'
 import { useRecoilState } from 'recoil'
 import { openSidebar } from '../../atom/Todolist'
 import SideBarBg from './SideBarBg'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCircleChevronLeft } from '@fortawesome/free-solid-svg-icons'
 import { CircularProgressbarWithChildren } from 'react-circular-progressbar'
 import 'react-circular-progressbar/dist/styles.css'
 import { ProFile } from '../../assets/svgs'
@@ -27,7 +25,7 @@ function SideBar() {
             setOpenSide(!openSide)
           }}
         >
-          <FontAwesomeIcon icon={faCircleChevronLeft} />
+          닫기
         </button>
         <div className={styles.circularWrap}>
           <CircularProgressbarWithChildren className={styles.circularProgressbar} value={percentage}>
