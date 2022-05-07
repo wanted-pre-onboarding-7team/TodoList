@@ -11,8 +11,8 @@ import { CalendarIcon, AddIcon, FlagIcon, MoonIcon } from '../../assets/svgs'
 
 function AddModal({ setOpenAddModal }) {
   const [inputValue, setInputValue] = useState('')
-  const [idx, incrementIndex] = useState(0)
   const [categoryPick, setCategoryPick] = useState('')
+  const [idx, incrementIndex] = useState(0)
   const [color, setColor] = useState('#dee3f9')
   const { addTodoList } = useTodoList()
 
