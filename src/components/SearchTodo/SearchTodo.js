@@ -62,6 +62,7 @@ function SearchTodo() {
           className={`${styles.searchBar} ${isSearchOpened ? styles.unfolded : styles.folded}`}
           value={searchInput}
           onChange={searchInputChangeHandler}
+          onBlur={toggleSearchBarHandler}
           onKeyDown={inputKeyHandler}
         />
       </div>
