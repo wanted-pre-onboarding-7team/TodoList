@@ -3,18 +3,10 @@ import styles from './SideBar.module.scss'
 import { useRecoilState } from 'recoil'
 import { openSidebar } from '../../atom/Todolist'
 import SideBarBg from './SideBarBg'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCircleChevronLeft } from '@fortawesome/free-solid-svg-icons'
-import { CircularProgressbarWithChildren } from 'react-circular-progressbar'
-import 'react-circular-progressbar/dist/styles.css'
-import { ProFile } from '../../assets/svgs'
-
-// import ProFile from '../../assets/images/profile.png'
+import { ProFile, CloseIcon } from '../../assets/svgs'
 
 function SideBar() {
   const [openSide, setOpenSide] = useRecoilState(openSidebar)
-
-  const percentage = 66
 
   return (
     <div className={`${styles.sideBarWrap}`}>
@@ -27,22 +19,23 @@ function SideBar() {
             setOpenSide(!openSide)
           }}
         >
-          <FontAwesomeIcon icon={faCircleChevronLeft} />
+          <CloseIcon fill='white' className={styles.closeIcon} />
         </button>
         <div className={styles.circularWrap}>
-          <CircularProgressbarWithChildren className={styles.circularProgressbar} value={percentage}>
-            <ProFile className={styles.circularProgressSvg} />
-          </CircularProgressbarWithChildren>
+          <ProFile className={styles.circularProgressSvg} />
         </div>
-        <h2 className={styles.userName}>
-          7팀
-          <br />이 많으면 두줄이 될까말까
-        </h2>
+        <h2 className={styles.userName}>7 Team</h2>
         <ul className={styles.sideList}>
-          <li>Templates</li>
-          <li>Categories</li>
-          <li>Analytics</li>
-          <li>Settings</li>
+          <li>dpfflsk45@gmail.com</li>
+          <li>wkqkel@naver.com</li>
+          <li>tosiltosilkk@gmail.com</li>
+          <li>my__memoria@naver.com</li>
+          <li>dkgueing@gmail.com</li>
+          <li>yoojamer@gmail.com</li>
+          <li>starberry970310@gmail.com</li>
+          <li>skagygus8@gmail.com</li>
+          <li>ejin1996@gmail.com</li>
+          <li>rlaqudwls157@gmail.com</li>
         </ul>
       </div>
     </div>

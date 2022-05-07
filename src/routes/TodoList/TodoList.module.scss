@@ -27,14 +27,19 @@
   }
   .openSideBtn {
     position: absolute;
-    top: 43px;
+    top: 40px;
     left: 38px;
     z-index: 1;
-    color: #909acc;
-    font-size: 30px;
+    width: 40px;
+
+    .openSideBtnBg {
+      path {
+        fill: #97a5d1;
+      }
+    }
   }
   .centering {
-    padding: 60px 40px 40px;
+    padding: 95px 40px 40px;
 
     .tasksTopWrapper {
       @include flexbox.flexbox(center center);

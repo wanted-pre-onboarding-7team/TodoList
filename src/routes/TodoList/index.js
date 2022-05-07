@@ -13,9 +13,7 @@ import useTodoList from '../../hooks/useTodoList'
 import ToastMessage from '../../components/Toast/ToastMessage'
 import cx from 'classnames'
 import TodoCheck from '../../components/TodoCheck/todoCheck'
-
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faBars, faCircleChevronLeft } from '@fortawesome/free-solid-svg-icons'
+import { SideMenuIcon } from '../../assets/svgs'
 
 function TodoList() {
   const [todoList, setTodoList] = useRecoilState(todoListState)
@@ -99,7 +97,7 @@ function TodoList() {
             setOpenSide(!openSide)
           }}
         >
-          <FontAwesomeIcon icon={faBars} />
+          <SideMenuIcon className={styles.openSideBtnBg} />
         </button>
         <SearchTodo />
         <h1>Hi! this is your assignment.</h1>
