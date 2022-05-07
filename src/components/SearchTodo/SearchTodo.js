@@ -1,5 +1,5 @@
-import { useState } from 'react'
-import { useSetRecoilState } from 'recoil'
+import { useState, useEffect, useCallback } from 'react'
+import { useRecoilState } from 'recoil'
 import { todoListState } from '../../atom/Todolist'
 
 import styles from './SearchTodo.module.scss'
@@ -9,25 +9,50 @@ function SearchTodo() {
   const [isSearchOpened, setIsSearchOpen] = useState(false)
   const [searchInput, setSearchInput] = useState('')
 
-  const setTodoList = useSetRecoilState(todoListState)
+  const [todoList, setTodoList] = useRecoilState(todoListState)
 
   const toggleSearchBarHandler = () => {
     setIsSearchOpen((current) => !current)
   }
 
-  const filteringTodoList = (inputValue) => {
+  useEffect(() => {
     setTodoList((current) =>
       current.map((todo) => {
-        return todo.title.includes(inputValue) ? { ...todo, hidden: false } : { ...todo, hidden: true }
+        return { ...todo, hidden: false }
       })
     )
-  }
+  }, [setTodoList])
+
+  const filteringTodoList = useCallback(
+    (value) => {
+      setTodoList((current) =>
+        current.map((todo) => {
+          const convertedInput = value.toLowerCase()
+          const isTodoIncludeInput = todo.title.toLowerCase().includes(convertedInput)
+          return isTodoIncludeInput ? { ...todo, hidden: false } : { ...todo, hidden: true }
+        })
+      )
+    },
+    [setTodoList]
+  )
+
+  useEffect(() => {
+    filteringTodoList(searchInput)
+  }, [todoList.length, searchInput, filteringTodoList])
 
   const searchInputChangeHandler = (e) => {
     const inputValue = e.target.value
 
     setSearchInput(inputValue)
-    filteringTodoList(inputValue)
+  }
+
+  const inputKeyHandler = (e) => {
+    if (e.key === 'Enter') {
+      setIsSearchOpen(false)
+    } else if (e.key === 'Escape') {
+      setSearchInput('')
+      filteringTodoList('')
+    }
   }
 
   return (
@@ -37,6 +62,8 @@ function SearchTodo() {
           className={`${styles.searchBar} ${isSearchOpened ? styles.unfolded : styles.folded}`}
           value={searchInput}
           onChange={searchInputChangeHandler}
+          onBlur={toggleSearchBarHandler}
+          onKeyDown={inputKeyHandler}
         />
       </div>
       <button type='button' onClick={toggleSearchBarHandler}>
