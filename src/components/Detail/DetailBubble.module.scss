@@ -11,9 +11,11 @@
     height: 66px;
     border-radius: 100%;
   }
+
   99% {
     transform: scale(21);
   }
+
   100% {
     width: 100%;
     height: 100%;
@@ -23,6 +25,6 @@
 
 .expandBubble {
   @include position.absolute(0);
-  background-color: #fafbfe;
+  background-color: colors.$WHITE;
   animation: expand 0.5s forwards;
 }

@@ -11,6 +11,8 @@ import { filteredTodoListState, todoListCategory, todoListState } from '../../at
 import { CategoryType } from '../../atom/CategoryList'
 import useDragDrop from '../../hooks/useDragDrop'
 import useTodoList from '../../hooks/useTodoList'
+import ToastUpdateMessage from '../../components/Toast/ToastUpdateMessage'
+import ToastDeleteMessage from '../../components/Toast/ToastDeleteMessage'
 
 function TodoList() {
   const [todoList, setTodoList] = useRecoilState(todoListState)
@@ -20,7 +22,15 @@ function TodoList() {
   const setCategory = useSetRecoilState(todoListCategory)
   const filteredTodoList = useRecoilValue(filteredTodoListState)
   const { handleDragStart, handleDragOver, handleDragEnd, handleOnDrop, grab } = useDragDrop()
-  const { handleOpenModal, handleCloseModal, handleTodoDelete, handleTodoEdit, isOpenModal } = useTodoList()
+  const {
+    handleOpenModal,
+    handleCloseModal,
+    handleTodoDelete,
+    handleTodoEdit,
+    isOpenModal,
+    showUpdateMsg,
+    showDeleteMsg,
+  } = useTodoList()
 
   const handleAddClick = () => {
     setOpenAddModal(true)
@@ -137,6 +147,8 @@ function TodoList() {
         />
       )}
       {isOpenDeleteModal ? <DeleteAllModal handleCloseModalFunction={handleCloseModalFunction} /> : ''}
+      {showUpdateMsg && <ToastUpdateMessage />}
+      {showDeleteMsg && <ToastDeleteMessage />}
     </div>
   )
 }

@@ -5,6 +5,15 @@ import { useState } from 'react'
 const useTodoList = () => {
   const [todoList, setTodoList] = useRecoilState(todoListState)
   const [isOpenModal, setIsOpenModal] = useState()
+  const [showUpdateMsg, setShowUpdateMsg] = useState(false)
+  const [showDeleteMsg, setShowDeleteMsg] = useState(false)
+
+  const timer = () => {
+    setTimeout(() => {
+      setShowUpdateMsg(false)
+      setShowDeleteMsg(false)
+    }, 4000)
+  }
 
   const addTodoList = (inputValue, categoryPick) => {
     const newValue = {
@@ -29,7 +38,9 @@ const useTodoList = () => {
   const handleTodoDelete = ({ id }) => {
     setTodoList(todoList.filter((el) => el.id !== id))
     localStorage.removeItem(id)
+    setShowDeleteMsg(true)
     handleCloseModal()
+    timer()
   }
 
   const handleTodoEdit = (item, inputValue) => {
@@ -45,9 +56,20 @@ const useTodoList = () => {
 
       handleCloseModal()
     }
+    setShowUpdateMsg(true)
+    timer()
   }
 
-  return { addTodoList, handleOpenModal, handleCloseModal, handleTodoDelete, handleTodoEdit, isOpenModal }
+  return {
+    addTodoList,
+    handleOpenModal,
+    handleCloseModal,
+    handleTodoDelete,
+    handleTodoEdit,
+    isOpenModal,
+    showUpdateMsg,
+    showDeleteMsg,
+  }
 }
 
 export default useTodoList

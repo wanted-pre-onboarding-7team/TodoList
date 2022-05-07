@@ -1,0 +1,30 @@
+@use '/src/styles/constants/colors';
+@use '/src/styles/constants/levels';
+@use '/src/styles/mixins/flexbox';
+@use '/src/styles/mixins/position';
+
+.messageBox {
+  @include flexbox.flexbox(center, center);
+  position: fixed;
+  bottom: 600px;
+  left: 30px;
+  width: 300px;
+  height: 40px;
+  background: colors.$BLUE;
+  border-radius: 100px;
+  animation: complete3 378ms 3099ms ease-in-out forwards;
+
+  @keyframes complete3 {
+    from {
+      transform: translateY(0%);
+    }
+
+    to {
+      transform: translateY(-400%);
+    }
+  }
+
+  span {
+    color: colors.$WHITE;
+  }
+}
