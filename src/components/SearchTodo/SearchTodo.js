@@ -15,10 +15,12 @@ function SearchTodo() {
     setIsSearchOpen((current) => !current)
   }
 
-  const filteringTodoList = (inputValue) => {
+  const filteringTodoList = (value) => {
     setTodoList((current) =>
       current.map((todo) => {
-        return todo.title.includes(inputValue) ? { ...todo, hidden: false } : { ...todo, hidden: true }
+        const convertedInput = value.toLowerCase()
+        const isTodoIncludeInput = todo.title.toLowerCase().includes(convertedInput)
+        return isTodoIncludeInput ? { ...todo, hidden: false } : { ...todo, hidden: true }
       })
     )
   }
@@ -30,6 +32,15 @@ function SearchTodo() {
     filteringTodoList(inputValue)
   }
 
+  const inputKeyHandler = (e) => {
+    if (e.key === 'Enter') {
+      setIsSearchOpen(false)
+    } else if (e.key === 'Escape') {
+      setSearchInput('')
+      filteringTodoList('')
+    }
+  }
+
   return (
     <div className={styles.searchTodo}>
       <div className={styles.searchBarWrapper}>
@@ -37,6 +48,7 @@ function SearchTodo() {
           className={`${styles.searchBar} ${isSearchOpened ? styles.unfolded : styles.folded}`}
           value={searchInput}
           onChange={searchInputChangeHandler}
+          onKeyDown={inputKeyHandler}
         />
       </div>
       <button type='button' onClick={toggleSearchBarHandler}>
