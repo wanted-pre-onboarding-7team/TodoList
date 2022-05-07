@@ -3,6 +3,7 @@ import { useRecoilState } from 'recoil'
 import { todoListState } from '../../atom/Todolist'
 import { CalendarIcon, EditIcon, DeleteIcon } from '../../assets/svgs'
 import React, { useState } from 'react'
+import DetailBubble from './DetailBubble'
 
 export default function Detail(props: any) {
   const [todoList, setTodoList] = useRecoilState(todoListState)
@@ -15,7 +16,8 @@ export default function Detail(props: any) {
 
   return (
     <div className={styles.detailWrap}>
-      <div className={styles.centering}>
+      <DetailBubble />
+      <div className={styles.detail}>
         <button type='button' className={styles.closeButton} aria-label='Close button' onClick={handleCloseModal} />
         <input type='text' defaultValue={item.title || ''} className={styles.title} onChange={(e) => updateValue(e)} />
         <div className={styles.todayBtnWrap}>

@@ -1,0 +1,30 @@
+@use '/src/styles/constants/colors';
+@use '/src/styles/constants/levels';
+@use '/src/styles/mixins/flexbox';
+@use '/src/styles/mixins/position';
+
+@keyframes expand {
+  0%,
+  99% {
+    @include position.absolute(auto 64px 24px auto);
+    width: 66px;
+    height: 66px;
+    border-radius: 100%;
+  }
+
+  99% {
+    transform: scale(21);
+  }
+
+  100% {
+    width: 100%;
+    height: 100%;
+    transform: scale(1);
+  }
+}
+
+.expandBubble {
+  @include position.absolute(0);
+  background-color: colors.$WHITE;
+  animation: expand 0.5s forwards;
+}
