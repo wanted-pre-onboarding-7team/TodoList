@@ -93,10 +93,10 @@ function TodoList() {
       <div className={styles.centering}>
         <button
           type='button'
+          className={styles.openSideBtn}
           onClick={() => {
             setOpenSide(!openSide)
           }}
-          className={styles.openSideBtn}
         >
           <FontAwesomeIcon icon={faBars} />
         </button>

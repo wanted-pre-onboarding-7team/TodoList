@@ -1,6 +1,6 @@
 {
-  "name": "foundation",
-  "version": "0.1.0",
+  "name": "TodoList",
+  "version": "1.22.18",
   "private": true,
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.1.1",
@@ -14,7 +14,9 @@
     "gh-pages": "^3.2.3",
     "prop-types": "^15.8.1",
     "react": "^18.1.0",
+    "react-circular-progressbar": "^2.0.4",
     "react-dom": "^18.1.0",
+    "react-is": "^18.1.0",
     "react-scripts": "5.0.1",
     "recoil": "^0.7.2",
     "web-vitals": "^2.1.4"
@@ -74,5 +76,9 @@
     "stylelint-declaration-strict-value": "^1.8.0",
     "stylelint-processor-styled-components": "^1.10.0"
   },
-  "homepage": "https://wanted-pre-onboarding-7team.github.io/TodoList"
+  "homepage": "https://wanted-pre-onboarding-7team.github.io/TodoList",
+  "main": "index.js",
+  "repository": "https://github.com/wanted-pre-onboarding-7team/TodoList.git",
+  "author": "Hyohyun Nam <skagygus8@gmail.com>",
+  "license": "MIT"
 }
