@@ -3,6 +3,7 @@ import { useRecoilState } from 'recoil'
 import { openSidebar } from '../../atom/Todolist'
 import SideBarBg from './SideBarBg'
 import { ProFile, CloseIcon } from '../../assets/svgs'
+import { DEVELOPER } from '../../assets/data/developer'
 
 function SideBar() {
   const [openSide, setOpenSide] = useRecoilState(openSidebar)
@@ -25,16 +26,9 @@ function SideBar() {
         </div>
         <h2 className={styles.userName}>7 Team</h2>
         <ul className={styles.sideList}>
-          <li>dpfflsk45@gmail.com</li>
-          <li>wkqkel@naver.com</li>
-          <li>tosiltosilkk@gmail.com</li>
-          <li>my__memoria@naver.com</li>
-          <li>dkgueing@gmail.com</li>
-          <li>yoojamer@gmail.com</li>
-          <li>starberry970310@gmail.com</li>
-          <li>skagygus8@gmail.com</li>
-          <li>ejin1996@gmail.com</li>
-          <li>rlaqudwls157@gmail.com</li>
+          {DEVELOPER.map((user, index) => (
+            <li key={`user-${index}`}>{user}</li>
+          ))}
         </ul>
       </div>
     </div>
