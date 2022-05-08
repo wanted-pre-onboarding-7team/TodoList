@@ -1,8 +1,8 @@
+import { useState } from 'react'
 import styles from './Detail.module.scss'
 import { useRecoilState } from 'recoil'
 import { todoListState } from '../../atom/Todolist'
 import { CalendarIcon, EditIcon, DeleteIcon } from '../../assets/svgs'
-import React, { useState } from 'react'
 import DetailBubble from './DetailBubble'
 
 export default function Detail(props: any) {

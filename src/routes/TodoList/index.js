@@ -7,7 +7,7 @@ import Detail from '../../components/Detail/Detail'
 import DeleteAllModal from '../../components/DeleteAll'
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil'
 import { filteredTodoListState, todoListCategory, todoListState, openSidebar } from '../../atom/Todolist'
-import { CategoryType } from '../../atom/CategoryList'
+import { CategoryList } from '../../atom/CategoryList'
 import useDragDrop from '../../hooks/useDragDrop'
 import useTodoList from '../../hooks/useTodoList'
 import ToastMessage from '../../components/Toast/ToastMessage'
@@ -104,7 +104,7 @@ function TodoList() {
         <p className={styles.tasksTitle}>Categories</p>
         <div className={styles.categories}>
           <Category onClick={handleCategoryClick} />
-          {CategoryType.map((item) => (
+          {CategoryList.map((item) => (
             <Category
               key={item.id}
               categoryType={item.title}

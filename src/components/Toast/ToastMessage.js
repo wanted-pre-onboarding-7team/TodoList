@@ -1,4 +1,3 @@
-import React from 'react'
 import styles from './ToastMessage.module.scss'
 
 export default function ToastMessage(props: any) {

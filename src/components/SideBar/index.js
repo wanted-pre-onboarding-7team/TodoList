@@ -1,4 +1,3 @@
-import React from 'react'
 import styles from './SideBar.module.scss'
 import { useRecoilState } from 'recoil'
 import { openSidebar } from '../../atom/Todolist'

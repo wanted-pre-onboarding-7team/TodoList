@@ -1,7 +1,7 @@
+import { useState } from 'react'
 import { useRecoilState } from 'recoil'
 import { todoListState } from '../atom/Todolist'
 import uuid from 'react-uuid'
-import { useState } from 'react'
 
 const useTodoList = () => {
   const [todoList, setTodoList] = useRecoilState(todoListState)

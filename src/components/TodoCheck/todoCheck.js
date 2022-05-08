@@ -1,6 +1,6 @@
 import styles from './TodoCheck.module.scss'
-import { CheckIcon } from '../../assets/svgs'
 import PropTypes from 'prop-types'
+import { CheckIcon } from '../../assets/svgs'
 
 function TodoCheck({ todo, onChange }) {
   return (
@@ -17,8 +17,6 @@ function TodoCheck({ todo, onChange }) {
   )
 }
 
-export default TodoCheck
-
 TodoCheck.propTypes = {
   todo: PropTypes.shape({
     id: PropTypes.string,
@@ -28,3 +26,5 @@ TodoCheck.propTypes = {
   }),
   onChange: PropTypes.func,
 }
+
+export default TodoCheck

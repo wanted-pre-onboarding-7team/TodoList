@@ -1,14 +1,12 @@
 import { useState, useEffect, useCallback } from 'react'
 import { useRecoilState } from 'recoil'
 import { todoListState } from '../../atom/Todolist'
-
 import styles from './SearchTodo.module.scss'
 import { SearchIcon } from '../../assets/svgs'
 
 function SearchTodo() {
   const [isSearchOpened, setIsSearchOpen] = useState(false)
   const [searchInput, setSearchInput] = useState('')
-
   const [todoList, setTodoList] = useRecoilState(todoListState)
 
   const toggleSearchBarHandler = () => {

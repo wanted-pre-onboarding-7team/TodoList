@@ -1,4 +1,4 @@
-export const CategoryType = [
+export const CategoryList = [
   {
     id: 1,
     title: 'business',
