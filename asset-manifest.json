@@ -1,17 +1,27 @@
 {
   "files": {
-    "main.css": "/TodoList/static/css/main.57ec5957.css",
-    "main.js": "/TodoList/static/js/main.b0d56f9e.js",
-    "static/js/787.364214df.chunk.js": "/TodoList/static/js/787.364214df.chunk.js",
+    "main.css": "/TodoList/static/css/main.dc660500.css",
+    "main.js": "/TodoList/static/js/main.d29ca5b6.js",
+    "static/js/787.6cb4b823.chunk.js": "/TodoList/static/js/787.6cb4b823.chunk.js",
+    "static/media/profile.svg": "/TodoList/static/media/profile.a98e5a5be262e4f64737ce8b2512e965.svg",
+    "static/media/moon.svg": "/TodoList/static/media/moon.7f8293656894abfeea5f63c496c0920c.svg",
     "static/media/logo.svg": "/TodoList/static/media/logo.6ce24c58023cc2f8fd88fe9d219db6c6.svg",
+    "static/media/close.svg": "/TodoList/static/media/close.ce192ff65a785cea8be6523ccad74a56.svg",
+    "static/media/delete.svg": "/TodoList/static/media/delete.1b80a116497dc63de020d4090b88ddcf.svg",
+    "static/media/edit.svg": "/TodoList/static/media/edit.5963db93dbdac2132d3f4dd802e1eafa.svg",
     "index.html": "/TodoList/index.html",
+    "static/media/add.svg": "/TodoList/static/media/add.e6a0624f8a3e89afabd6555f395c6b6d.svg",
+    "static/media/search.svg": "/TodoList/static/media/search.19c08ad88b12ef44f725da95cb9eaf54.svg",
+    "static/media/sidebar.svg": "/TodoList/static/media/sidebar.6fc5e98e22a6cf70e8f6a881d6d28c92.svg",
+    "static/media/flag.svg": "/TodoList/static/media/flag.baf8101685053292c3fc0b420e8d62c9.svg",
+    "static/media/calendar.svg": "/TodoList/static/media/calendar.3ac6b8a7cdfdf7e4b99667c12f07a2d9.svg",
     "static/media/check.svg": "/TodoList/static/media/check.9f1e9f1c65d56f327fb5297428926abc.svg",
-    "main.57ec5957.css.map": "/TodoList/static/css/main.57ec5957.css.map",
-    "main.b0d56f9e.js.map": "/TodoList/static/js/main.b0d56f9e.js.map",
-    "787.364214df.chunk.js.map": "/TodoList/static/js/787.364214df.chunk.js.map"
+    "main.dc660500.css.map": "/TodoList/static/css/main.dc660500.css.map",
+    "main.d29ca5b6.js.map": "/TodoList/static/js/main.d29ca5b6.js.map",
+    "787.6cb4b823.chunk.js.map": "/TodoList/static/js/787.6cb4b823.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.57ec5957.css",
-    "static/js/main.b0d56f9e.js"
+    "static/css/main.dc660500.css",
+    "static/js/main.d29ca5b6.js"
   ]
 }
