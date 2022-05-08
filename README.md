@@ -3,6 +3,10 @@
 - 카테고리별 Todo CRUD 기능
 - TodoList 검색 기능
 
+## 배포 주소
+
+[배포 주소](https://wanted-pre-onboarding-7team.github.io/TodoList/)
+
 ## 팀원
 
 | | | | | |
@@ -71,3 +75,5 @@
 - Delete All 버튼에 커서 포인터와 hover시 버튼 컬러를 변경해주어 사용자가 버튼임을 인지할 수 있게 구현
 - Today's 오른쪽에 Delete All 버튼을 누르면 모달창이 열림
 - 모달창에서 Delete 버튼을 누르면 모든 TodoList를 데이터 전체 삭제
+
+
