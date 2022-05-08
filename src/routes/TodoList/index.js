@@ -24,6 +24,7 @@ function TodoList() {
   const setCategory = useSetRecoilState(todoListCategory)
   const { handleDragStart, handleDragOver, handleDragEnd, handleOnDrop, grab } = useDragDrop()
   const {
+    handleChange,
     handleOpenModal,
     handleCloseModal,
     handleTodoDelete,
@@ -44,20 +45,12 @@ function TodoList() {
     localStorage.setItem('todoList', JSON.stringify(todoList))
   }, [inputChecked, todoList])
 
-  const handleSide = () => {
-    setOpenSide((prev) => !prev)
-  }
-
-  const handleAddClick = () => {
-    setIsAddModalOpen(true)
-  }
-
-  const handleDeleteAllClick = () => {
-    setIsDeleteModalOpen(true)
-  }
-
   const isGrabbing = (index) => {
     return grab && Number(grab.dataset.position) === index
+  }
+
+  const handleSide = () => {
+    setOpenSide((prev) => !prev)
   }
 
   const handleCategoryClick = (e) => {
@@ -66,25 +59,12 @@ function TodoList() {
     setCategory(title)
   }
 
-  const handleChange = (e) => {
-    const { dataset, checked } = e.currentTarget
-    const { id } = dataset
+  const handleDeleteAllClick = () => {
+    setIsDeleteModalOpen(true)
+  }
 
-    setTodoList((prev) => {
-      const targetIndex = prev.findIndex((todo) => todo.id === id)
-      const newList = [
-        ...prev.slice(0, targetIndex),
-        {
-          id: prev[targetIndex].id,
-          title: prev[targetIndex].title,
-          done: checked,
-          category: prev[targetIndex].category,
-        },
-        ...prev.slice(targetIndex + 1),
-      ]
-
-      return newList
-    })
+  const handleAddClick = () => {
+    setIsAddModalOpen(true)
   }
 
   return (

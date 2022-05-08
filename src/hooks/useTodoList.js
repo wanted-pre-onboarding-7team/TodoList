@@ -16,6 +16,27 @@ const useTodoList = () => {
     }, 4000)
   }
 
+  const handleChange = (e) => {
+    const { dataset, checked } = e.currentTarget
+    const { id } = dataset
+
+    setTodoList((prev) => {
+      const targetIndex = prev.findIndex((todo) => todo.id === id)
+      const newList = [
+        ...prev.slice(0, targetIndex),
+        {
+          id: prev[targetIndex].id,
+          title: prev[targetIndex].title,
+          done: checked,
+          category: prev[targetIndex].category,
+        },
+        ...prev.slice(targetIndex + 1),
+      ]
+
+      return newList
+    })
+  }
+
   const addTodoList = (inputValue, categoryPick) => {
     const newValue = {
       id: uuid(),
@@ -63,6 +84,7 @@ const useTodoList = () => {
   }
 
   return {
+    handleChange,
     addTodoList,
     handleOpenModal,
     handleCloseModal,
