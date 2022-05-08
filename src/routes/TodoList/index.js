@@ -44,12 +44,20 @@ function TodoList() {
     localStorage.setItem('todoList', JSON.stringify(todoList))
   }, [inputChecked, todoList])
 
+  const handleSide = () => {
+    setOpenSide((prev) => !prev)
+  }
+
   const handleAddClick = () => {
     setIsAddModalOpen(true)
   }
 
   const handleDeleteAllClick = () => {
     setIsDeleteModalOpen(true)
+  }
+
+  const isGrabbing = (index) => {
+    return grab && Number(grab.dataset.position) === index
   }
 
   const handleCategoryClick = (e) => {
@@ -80,15 +88,9 @@ function TodoList() {
   }
 
   return (
-    <div className={`${styles.todoList} ${openSide && styles.sideOpen}`}>
+    <div className={cx(styles.todoList, { [styles.sideOpen]: openSide })}>
       <div className={styles.centering}>
-        <button
-          type='button'
-          className={styles.openSideBtn}
-          onClick={() => {
-            setOpenSide(!openSide)
-          }}
-        >
+        <button type='button' className={styles.openSideBtn} onClick={handleSide}>
           <SideMenuIcon className={styles.openSideBtnBg} />
         </button>
         <SearchTodo />
@@ -121,9 +123,13 @@ function TodoList() {
             <li
               key={`todo-${todo.id}`}
               data-position={index}
-              className={`${styles.task} ${todo.hidden ? styles.hidden : ''} ${
-                grab && Number(grab.dataset.position) === index && styles.grabbing
-              }`}
+              className={cx(
+                styles.task,
+                { [styles.hidden]: todo.hidden },
+                {
+                  [styles.grabbing]: isGrabbing(index),
+                }
+              )}
               draggable='true'
               onDragStart={handleDragStart}
               onDragOver={handleDragOver}
@@ -131,8 +137,12 @@ function TodoList() {
               onDrop={handleOnDrop}
             >
               <TodoCheck onChange={handleChange} todo={todo} />
-              <button type='button' onClick={() => handleOpenModal(todo.id, todo.title)}>
-                <p className={cx(styles.title, { [styles.show]: todo.done })}>{todo.title}</p>
+              <button
+                type='button'
+                className={cx(styles.title, { [styles.show]: todo.done })}
+                onClick={() => handleOpenModal(todo.id, todo.title)}
+              >
+                {todo.title}
               </button>
             </li>
           ))}
