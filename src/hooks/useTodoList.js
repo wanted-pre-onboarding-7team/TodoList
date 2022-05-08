@@ -6,7 +6,7 @@ import Swal from 'sweetalert2'
 
 const useTodoList = () => {
   const [todoList, setTodoList] = useRecoilState(todoListState)
-  const [isOpenModal, setIsOpenModal] = useState()
+  const [currentTask, setCurrentTask] = useState('')
   const [showUpdateMsg, setShowUpdateMsg] = useState(false)
   const [showDeleteMsg, setShowDeleteMsg] = useState(false)
 
@@ -15,6 +15,27 @@ const useTodoList = () => {
       setShowUpdateMsg(false)
       setShowDeleteMsg(false)
     }, 4000)
+  }
+
+  const handleChange = (e) => {
+    const { dataset, checked } = e.currentTarget
+    const { id } = dataset
+
+    setTodoList((prev) => {
+      const targetIndex = prev.findIndex((todo) => todo.id === id)
+      const newList = [
+        ...prev.slice(0, targetIndex),
+        {
+          id: prev[targetIndex].id,
+          title: prev[targetIndex].title,
+          done: checked,
+          category: prev[targetIndex].category,
+        },
+        ...prev.slice(targetIndex + 1),
+      ]
+
+      return newList
+    })
   }
 
   const addTodoList = (inputValue, categoryPick) => {
@@ -31,11 +52,11 @@ const useTodoList = () => {
   }
 
   const handleOpenModal = (id, title) => {
-    setIsOpenModal({ id, title })
+    setCurrentTask({ id, title })
   }
 
   const handleCloseModal = () => {
-    setIsOpenModal('')
+    setCurrentTask('')
   }
 
   const handleTodoDelete = ({ id }) => {
@@ -70,12 +91,13 @@ const useTodoList = () => {
   }
 
   return {
+    handleChange,
     addTodoList,
     handleOpenModal,
     handleCloseModal,
     handleTodoDelete,
     handleTodoEdit,
-    isOpenModal,
+    currentTask,
     showUpdateMsg,
     showDeleteMsg,
   }

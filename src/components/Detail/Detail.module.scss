@@ -13,12 +13,13 @@
 
   @keyframes fadeInDown {
     0% {
-      transform: translateY(-30px);
       opacity: 0;
+      transform: translateY(-30px);
     }
+
     to {
-      transform: translateY(0px);
       opacity: 1;
+      transform: translateY(0);
     }
   }
 
@@ -27,7 +28,7 @@
     width: 100%;
     height: 100%;
     padding: 120px 50px 44px;
-    box-shadow: 0 0px 24px 8px rgba(colors.$WHITE, 95%);
+    box-shadow: 0 0 24px 8px rgba(colors.$WHITE, 95%);
 
     & > * {
       opacity: 0;
@@ -50,7 +51,7 @@
 
   .title {
     width: 100%;
-    margin: 112px 0 48px 0;
+    margin: 112px 0 48px;
     font-size: 30px;
     text-overflow: ellipsis;
     caret-color: colors.$BLUE;
@@ -73,8 +74,8 @@
       @include position.middleBox;
       width: 18px;
       height: 2px;
-      background-color: colors.$GRAY3;
       content: '';
+      background-color: colors.$GRAY3;
     }
 
     &::after {
@@ -112,8 +113,8 @@
       &::after {
         @include position.posCenter;
         display: block;
-        border-radius: 50%;
         content: '';
+        border-radius: 50%;
       }
 
       &::after {

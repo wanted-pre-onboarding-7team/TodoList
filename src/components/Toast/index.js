@@ -1,12 +1,16 @@
-import React from 'react'
 import styles from './ToastMessage.module.scss'
+import PropTypes from 'prop-types'
 
-export default function ToastMessage(props: any) {
-  const { message } = props
-
+function ToastMessage({ message }) {
   return (
     <div className={styles.messageBox}>
       <span>리스트가 {message} 되었습니다.</span>
     </div>
   )
 }
+
+ToastMessage.propTypes = {
+  message: PropTypes.string.isRequired,
+}
+
+export default ToastMessage

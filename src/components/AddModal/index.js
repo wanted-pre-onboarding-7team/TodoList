@@ -1,15 +1,13 @@
 import { useState } from 'react'
 import PropTypes from 'prop-types'
 import useTodoList from '../../hooks/useTodoList'
-import { CategoryType } from '../../atom/CategoryList'
+import { CategoryList } from '../../atom/CategoryList'
 import Swal from 'sweetalert2'
-
 import ExpandBubble from './ExpandBubble'
-
 import styles from './AddModal.module.scss'
 import { CalendarIcon, AddIcon, FlagIcon, MoonIcon } from '../../assets/svgs'
 
-function AddModal({ setOpenAddModal }) {
+function AddModal({ setIsAddModalOpen }) {
   const [inputValue, setInputValue] = useState('')
   const [categoryPick, setCategoryPick] = useState('')
   const [idx, incrementIndex] = useState(0)
@@ -29,7 +27,7 @@ function AddModal({ setOpenAddModal }) {
   }
 
   const handleClose = () => {
-    setOpenAddModal(false)
+    setIsAddModalOpen(false)
   }
 
   const handleInputChange = ({ target: { value } }) => {
@@ -39,17 +37,17 @@ function AddModal({ setOpenAddModal }) {
   const handleAddBtnClick = () => {
     if (checkEmptyInput()) return
     addTodoList(inputValue, categoryPick)
-    setOpenAddModal(false)
+    setIsAddModalOpen(false)
   }
 
   const handleChangeCategory = () => {
-    if (idx >= CategoryType.length) {
-      setCategoryPick(CategoryType[0].title)
-      setColor(CategoryType[0].color)
+    if (idx >= CategoryList.length) {
+      setCategoryPick(CategoryList[0].title)
+      setColor(CategoryList[0].color)
       incrementIndex(1)
     } else {
-      setCategoryPick(CategoryType[idx].title)
-      setColor(CategoryType[idx].color)
+      setCategoryPick(CategoryList[idx].title)
+      setColor(CategoryList[idx].color)
       incrementIndex(idx + 1)
     }
   }
@@ -85,8 +83,8 @@ function AddModal({ setOpenAddModal }) {
   )
 }
 
-export default AddModal
-
 AddModal.propTypes = {
-  setOpenAddModal: PropTypes.func.isRequired,
+  setIsAddModalOpen: PropTypes.func.isRequired,
 }
+
+export default AddModal

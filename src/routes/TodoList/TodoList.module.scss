@@ -1,5 +1,4 @@
 @use '/src/styles/constants/colors';
-@use '/src/styles/constants/levels';
 @use '/src/styles/mixins/flexbox';
 @use '/src/styles/mixins/position';
 @use '/src/styles/mixins/visual';
@@ -20,11 +19,13 @@
   -webkit-border-radius: 60px;
   border-radius: 60px;
   transition: all ease-out 0.7s;
+
   h1 {
     font-size: 32px;
     font-weight: 600;
     color: colors.$BIG_TITLE;
   }
+
   .openSideBtn {
     position: absolute;
     top: 40px;
@@ -38,6 +39,7 @@
       }
     }
   }
+
   .centering {
     padding: 95px 40px 40px;
 

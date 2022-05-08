@@ -1,102 +1,76 @@
 import { useEffect, useState } from 'react'
 import styles from './TodoList.module.scss'
 import Category from '../../components/Category'
-import AddModal from '../../components/AddTodo/AddModal'
-import SearchTodo from '../../components/SearchTodo/SearchTodo'
-import Detail from '../../components/Detail/Detail'
-import DeleteAllModal from '../../components/DeleteAll'
-import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil'
-import { filteredTodoListState, todoListCategory, todoListState, openSidebar } from '../../atom/Todolist'
-import { CategoryType } from '../../atom/CategoryList'
+import AddModal from '../../components/AddModal'
+import SearchTodo from '../../components/SearchTodo'
+import Detail from '../../components/Detail'
+import DeleteAllModal from '../../components/DeleteAllModal'
 import useDragDrop from '../../hooks/useDragDrop'
 import useTodoList from '../../hooks/useTodoList'
-import ToastMessage from '../../components/Toast/ToastMessage'
-import cx from 'classnames'
-import TodoCheck from '../../components/TodoCheck/todoCheck'
+import ToastMessage from '../../components/Toast'
+import TodoCheck from '../../components/TodoCheck'
+import { CategoryList } from '../../atom/CategoryList'
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil'
+import { filteredTodoListState, todoListCategory, todoListState, openSidebar } from '../../atom/Todolist'
+import { cx } from '../../styles'
 import { SideMenuIcon } from '../../assets/svgs'
 
 function TodoList() {
   const [todoList, setTodoList] = useRecoilState(todoListState)
-  const [openAddModal, setOpenAddModal] = useState(false)
   const [openSide, setOpenSide] = useRecoilState(openSidebar)
-  const [isOpenDeleteModal, setIsOpenDeleteModal] = useState(false)
-  const setCategory = useSetRecoilState(todoListCategory)
+  const [isAddModalOpen, setIsAddModalOpen] = useState(false)
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false)
   const filteredTodoList = useRecoilValue(filteredTodoListState)
+  const setCategory = useSetRecoilState(todoListCategory)
   const { handleDragStart, handleDragOver, handleDragEnd, handleOnDrop, grab } = useDragDrop()
   const {
+    handleChange,
     handleOpenModal,
     handleCloseModal,
     handleTodoDelete,
     handleTodoEdit,
-    isOpenModal,
+    currentTask,
     showUpdateMsg,
     showDeleteMsg,
   } = useTodoList()
-  const inputCheked = todoList && todoList.find((item) => item.done)
+  const inputChecked = todoList && todoList.find((item) => item.done)
 
   useEffect(() => {
     const todolist = localStorage.getItem('todoList')
     if (todolist) setTodoList(JSON.parse(localStorage.getItem('todoList')))
   }, [setTodoList])
 
-  const handleAddClick = () => {
-    setOpenAddModal(true)
+  useEffect(() => {
+    localStorage.removeItem(todoList)
+    localStorage.setItem('todoList', JSON.stringify(todoList))
+  }, [inputChecked, todoList])
+
+  const isGrabbing = (index) => {
+    return grab && Number(grab.dataset.position) === index
   }
 
-  const handleDeleteAllClick = () => {
-    setIsOpenDeleteModal(!isOpenDeleteModal)
-  }
-
-  const handleCloseModalFunction = (isCloseModal) => {
-    if (isCloseModal === true) {
-      setIsOpenDeleteModal(false)
-    }
+  const handleSide = () => {
+    setOpenSide((prev) => !prev)
   }
 
   const handleCategoryClick = (e) => {
     const { title } = e.currentTarget.dataset
 
-    setCategory(() => title)
+    setCategory(title)
   }
 
-  useEffect(() => {
-    localStorage.removeItem(todoList)
-    localStorage.setItem('todoList', JSON.stringify(todoList))
-  }, [inputCheked, todoList])
+  const handleDeleteAllClick = () => {
+    setIsDeleteModalOpen(true)
+  }
 
-  const handleChange = (e) => {
-    const { dataset, checked } = e.currentTarget
-    const { id } = dataset
-    localStorage.removeItem(todoList)
-    localStorage.setItem('todoList', JSON.stringify(todoList))
-
-    setTodoList((prev) => {
-      const targetIndex = prev.findIndex((todo) => todo.id === id)
-      const newList = [
-        ...prev.slice(0, targetIndex),
-        {
-          id: prev[targetIndex].id,
-          title: prev[targetIndex].title,
-          done: checked,
-          category: prev[targetIndex].category,
-        },
-        ...prev.slice(targetIndex + 1),
-      ]
-
-      return newList
-    })
+  const handleAddClick = () => {
+    setIsAddModalOpen(true)
   }
 
   return (
-    <div className={`${styles.todoList} ${openSide && styles.sideOpen}`}>
+    <div className={cx(styles.todoList, { [styles.sideOpen]: openSide })}>
       <div className={styles.centering}>
-        <button
-          type='button'
-          className={styles.openSideBtn}
-          onClick={() => {
-            setOpenSide(!openSide)
-          }}
-        >
+        <button type='button' className={styles.openSideBtn} onClick={handleSide}>
           <SideMenuIcon className={styles.openSideBtnBg} />
         </button>
         <SearchTodo />
@@ -104,7 +78,7 @@ function TodoList() {
         <p className={styles.tasksTitle}>Categories</p>
         <div className={styles.categories}>
           <Category onClick={handleCategoryClick} />
-          {CategoryType.map((item) => (
+          {CategoryList.map((item) => (
             <Category
               key={item.id}
               categoryType={item.title}
@@ -129,9 +103,13 @@ function TodoList() {
             <li
               key={`todo-${todo.id}`}
               data-position={index}
-              className={`${styles.task} ${todo.hidden ? styles.hidden : ''} ${
-                grab && Number(grab.dataset.position) === index && styles.grabbing
-              }`}
+              className={cx(
+                styles.task,
+                { [styles.hidden]: todo.hidden },
+                {
+                  [styles.grabbing]: isGrabbing(index),
+                }
+              )}
               draggable='true'
               onDragStart={handleDragStart}
               onDragOver={handleDragOver}
@@ -139,24 +117,28 @@ function TodoList() {
               onDrop={handleOnDrop}
             >
               <TodoCheck onChange={handleChange} todo={todo} />
-              <button type='button' onClick={() => handleOpenModal(todo.id, todo.title)}>
-                <p className={cx(styles.title, { [styles.show]: todo.done })}>{todo.title}</p>
+              <button
+                type='button'
+                className={cx(styles.title, { [styles.show]: todo.done })}
+                onClick={() => handleOpenModal(todo.id, todo.title)}
+              >
+                {todo.title}
               </button>
             </li>
           ))}
         </ul>
         <button type='button' className={styles.addButton} aria-label='Add button' onClick={handleAddClick} />
       </div>
-      {openAddModal && <AddModal setOpenAddModal={setOpenAddModal} />}
-      {isOpenModal && (
+      {isAddModalOpen && <AddModal setIsAddModalOpen={setIsAddModalOpen} />}
+      {currentTask && (
         <Detail
-          item={isOpenModal}
+          item={currentTask}
           handleCloseModal={handleCloseModal}
           handleTodoDelete={handleTodoDelete}
           handleTodoEdit={handleTodoEdit}
         />
       )}
-      {isOpenDeleteModal ? <DeleteAllModal handleCloseModalFunction={handleCloseModalFunction} /> : ''}
+      {isDeleteModalOpen ? <DeleteAllModal setIsDeleteModalOpen={setIsDeleteModalOpen} /> : ''}
       {showUpdateMsg && <ToastMessage message='수정' />}
       {showDeleteMsg && <ToastMessage message='삭제' />}
     </div>

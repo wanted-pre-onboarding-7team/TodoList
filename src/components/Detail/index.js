@@ -1,17 +1,14 @@
+import { useState } from 'react'
 import styles from './Detail.module.scss'
-import { useRecoilState } from 'recoil'
-import { todoListState } from '../../atom/Todolist'
+import PropTypes from 'prop-types'
 import { CalendarIcon, EditIcon, DeleteIcon } from '../../assets/svgs'
-import React, { useState } from 'react'
 import DetailBubble from './DetailBubble'
 
-export default function Detail(props: any) {
-  const [todoList, setTodoList] = useRecoilState(todoListState)
-  const { item, handleCloseModal, handleTodoDelete, handleTodoEdit } = props
+function Detail({ item, handleCloseModal, handleTodoDelete, handleTodoEdit }) {
   const [inputValue, setInputValue] = useState(item.title)
 
   const updateValue = (e) => {
-    setInputValue(e.target.value)
+    setInputValue(e.currentTarget.value)
   }
 
   return (
@@ -35,3 +32,15 @@ export default function Detail(props: any) {
     </div>
   )
 }
+
+Detail.propTypes = {
+  item: PropTypes.shape({
+    id: PropTypes.string,
+    title: PropTypes.string,
+  }),
+  handleCloseModal: PropTypes.func.isRequired,
+  handleTodoEdit: PropTypes.func.isRequired,
+  handleTodoDelete: PropTypes.func.isRequired,
+}
+
+export default Detail

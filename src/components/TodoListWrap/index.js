@@ -1,12 +1,11 @@
 import styles from './TodoListWrap.module.scss'
 import PropTypes from 'prop-types'
 
-// eslint-disable-next-line react/prop-types
 function TodoListWrap({ children }) {
   return <div className={styles.todoListWrap}>{children}</div>
 }
 
-TodoListWrap.propsTypes = {
+TodoListWrap.propTypes = {
   children: PropTypes.node.isRequired,
 }
 
