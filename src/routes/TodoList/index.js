@@ -5,70 +5,62 @@ import AddModal from '../../components/AddModal'
 import SearchTodo from '../../components/SearchTodo'
 import Detail from '../../components/Detail'
 import DeleteAllModal from '../../components/DeleteAllModal'
-import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil'
-import { filteredTodoListState, todoListCategory, todoListState, openSidebar } from '../../atom/Todolist'
-import { CategoryList } from '../../atom/CategoryList'
 import useDragDrop from '../../hooks/useDragDrop'
 import useTodoList from '../../hooks/useTodoList'
 import ToastMessage from '../../components/Toast'
-import cx from 'classnames'
 import TodoCheck from '../../components/TodoCheck'
+import { CategoryList } from '../../atom/CategoryList'
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil'
+import { filteredTodoListState, todoListCategory, todoListState, openSidebar } from '../../atom/Todolist'
+import { cx } from '../../styles'
 import { SideMenuIcon } from '../../assets/svgs'
 
 function TodoList() {
   const [todoList, setTodoList] = useRecoilState(todoListState)
-  const [openAddModal, setOpenAddModal] = useState(false)
   const [openSide, setOpenSide] = useRecoilState(openSidebar)
-  const [isOpenDeleteModal, setIsOpenDeleteModal] = useState(false)
-  const setCategory = useSetRecoilState(todoListCategory)
+  const [isAddModalOpen, setIsAddModalOpen] = useState(false)
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false)
   const filteredTodoList = useRecoilValue(filteredTodoListState)
+  const setCategory = useSetRecoilState(todoListCategory)
   const { handleDragStart, handleDragOver, handleDragEnd, handleOnDrop, grab } = useDragDrop()
   const {
     handleOpenModal,
     handleCloseModal,
     handleTodoDelete,
     handleTodoEdit,
-    isOpenModal,
+    currentTask,
     showUpdateMsg,
     showDeleteMsg,
   } = useTodoList()
-  const inputCheked = todoList && todoList.find((item) => item.done)
+  const inputChecked = todoList && todoList.find((item) => item.done)
 
   useEffect(() => {
     const todolist = localStorage.getItem('todoList')
     if (todolist) setTodoList(JSON.parse(localStorage.getItem('todoList')))
   }, [setTodoList])
 
+  useEffect(() => {
+    localStorage.removeItem(todoList)
+    localStorage.setItem('todoList', JSON.stringify(todoList))
+  }, [inputChecked, todoList])
+
   const handleAddClick = () => {
-    setOpenAddModal(true)
+    setIsAddModalOpen(true)
   }
 
   const handleDeleteAllClick = () => {
-    setIsOpenDeleteModal(!isOpenDeleteModal)
-  }
-
-  const handleCloseModalFunction = (isCloseModal) => {
-    if (isCloseModal === true) {
-      setIsOpenDeleteModal(false)
-    }
+    setIsDeleteModalOpen(true)
   }
 
   const handleCategoryClick = (e) => {
     const { title } = e.currentTarget.dataset
 
-    setCategory(() => title)
+    setCategory(title)
   }
-
-  useEffect(() => {
-    localStorage.removeItem(todoList)
-    localStorage.setItem('todoList', JSON.stringify(todoList))
-  }, [inputCheked, todoList])
 
   const handleChange = (e) => {
     const { dataset, checked } = e.currentTarget
     const { id } = dataset
-    localStorage.removeItem(todoList)
-    localStorage.setItem('todoList', JSON.stringify(todoList))
 
     setTodoList((prev) => {
       const targetIndex = prev.findIndex((todo) => todo.id === id)
@@ -147,16 +139,16 @@ function TodoList() {
         </ul>
         <button type='button' className={styles.addButton} aria-label='Add button' onClick={handleAddClick} />
       </div>
-      {openAddModal && <AddModal setOpenAddModal={setOpenAddModal} />}
-      {isOpenModal && (
+      {isAddModalOpen && <AddModal setIsAddModalOpen={setIsAddModalOpen} />}
+      {currentTask && (
         <Detail
-          item={isOpenModal}
+          item={currentTask}
           handleCloseModal={handleCloseModal}
           handleTodoDelete={handleTodoDelete}
           handleTodoEdit={handleTodoEdit}
         />
       )}
-      {isOpenDeleteModal ? <DeleteAllModal handleCloseModalFunction={handleCloseModalFunction} /> : ''}
+      {isDeleteModalOpen ? <DeleteAllModal setIsDeleteModalOpen={setIsDeleteModalOpen} /> : ''}
       {showUpdateMsg && <ToastMessage message='수정' />}
       {showDeleteMsg && <ToastMessage message='삭제' />}
     </div>

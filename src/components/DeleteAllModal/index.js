@@ -1,22 +1,19 @@
-import { useState } from 'react'
 import styles from './DeleteAllModal.module.scss'
 import PropTypes from 'prop-types'
 import { useSetRecoilState } from 'recoil'
 import { todoListState } from '../../atom/Todolist'
 
-function DeleteAllModal({ handleCloseModalFunction }) {
+function DeleteAllModal({ setIsDeleteModalOpen }) {
   const setTodoList = useSetRecoilState(todoListState)
-  const [isCloseModal, setIsCloseModal] = useState(false)
 
   const handleCloseButtonClick = () => {
-    setIsCloseModal(!isCloseModal)
-    handleCloseModalFunction(true)
+    setIsDeleteModalOpen(false)
   }
 
   const handleDeleteButtonClick = () => {
     setTodoList([])
     localStorage.clear()
-    handleCloseModalFunction(true)
+    setIsDeleteModalOpen(false)
   }
 
   return (
@@ -49,7 +46,7 @@ function DeleteAllModal({ handleCloseModalFunction }) {
 }
 
 DeleteAllModal.propTypes = {
-  handleCloseModalFunction: PropTypes.func,
+  setIsDeleteModalOpen: PropTypes.func,
 }
 
 export default DeleteAllModal

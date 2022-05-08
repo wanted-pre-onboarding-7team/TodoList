@@ -5,7 +5,7 @@ import uuid from 'react-uuid'
 
 const useTodoList = () => {
   const [todoList, setTodoList] = useRecoilState(todoListState)
-  const [isOpenModal, setIsOpenModal] = useState()
+  const [currentTask, setCurrentTask] = useState('')
   const [showUpdateMsg, setShowUpdateMsg] = useState(false)
   const [showDeleteMsg, setShowDeleteMsg] = useState(false)
 
@@ -30,11 +30,11 @@ const useTodoList = () => {
   }
 
   const handleOpenModal = (id, title) => {
-    setIsOpenModal({ id, title })
+    setCurrentTask({ id, title })
   }
 
   const handleCloseModal = () => {
-    setIsOpenModal('')
+    setCurrentTask('')
   }
 
   const handleTodoDelete = ({ id }) => {
@@ -68,7 +68,7 @@ const useTodoList = () => {
     handleCloseModal,
     handleTodoDelete,
     handleTodoEdit,
-    isOpenModal,
+    currentTask,
     showUpdateMsg,
     showDeleteMsg,
   }

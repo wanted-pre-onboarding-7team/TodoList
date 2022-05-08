@@ -7,7 +7,7 @@ import ExpandBubble from './ExpandBubble'
 import styles from './AddModal.module.scss'
 import { CalendarIcon, AddIcon, FlagIcon, MoonIcon } from '../../assets/svgs'
 
-function AddModal({ setOpenAddModal }) {
+function AddModal({ setIsAddModalOpen }) {
   const [inputValue, setInputValue] = useState('')
   const [categoryPick, setCategoryPick] = useState('')
   const [idx, incrementIndex] = useState(0)
@@ -27,7 +27,7 @@ function AddModal({ setOpenAddModal }) {
   }
 
   const handleClose = () => {
-    setOpenAddModal(false)
+    setIsAddModalOpen(false)
   }
 
   const handleInputChange = ({ target: { value } }) => {
@@ -37,7 +37,7 @@ function AddModal({ setOpenAddModal }) {
   const handleAddBtnClick = () => {
     if (checkEmptyInput()) return
     addTodoList(inputValue, categoryPick)
-    setOpenAddModal(false)
+    setIsAddModalOpen(false)
   }
 
   const handleChangeCategory = () => {
@@ -84,7 +84,7 @@ function AddModal({ setOpenAddModal }) {
 }
 
 AddModal.propTypes = {
-  setOpenAddModal: PropTypes.func.isRequired,
+  setIsAddModalOpen: PropTypes.func.isRequired,
 }
 
 export default AddModal
