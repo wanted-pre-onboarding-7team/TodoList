@@ -1,13 +1,11 @@
 import { useState } from 'react'
 import styles from './DeleteAllModal.module.scss'
-import { useRecoilState } from 'recoil'
+import PropTypes from 'prop-types'
+import { useSetRecoilState } from 'recoil'
 import { todoListState } from '../../atom/Todolist'
-// import PropTypes from 'prop-types'
 
-// eslint-disable-next-line react/prop-types
 function DeleteAllModal({ handleCloseModalFunction }) {
-  const [todoList, setTodoList] = useRecoilState(todoListState)
-
+  const setTodoList = useSetRecoilState(todoListState)
   const [isCloseModal, setIsCloseModal] = useState(false)
 
   const handleCloseButtonClick = () => {
@@ -50,10 +48,8 @@ function DeleteAllModal({ handleCloseModalFunction }) {
   )
 }
 
-/*
-DeleteAllModal.propsTypes = {
+DeleteAllModal.propTypes = {
   handleCloseModalFunction: PropTypes.func,
 }
-*/
 
 export default DeleteAllModal
