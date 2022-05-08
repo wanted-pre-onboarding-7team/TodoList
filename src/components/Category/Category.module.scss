@@ -1,7 +1,4 @@
 @use '/src/styles/constants/colors';
-@use '/src/styles/constants/levels';
-@use '/src/styles/mixins/flexbox';
-@use '/src/styles/mixins/position';
 
 .category {
   position: relative;
@@ -33,7 +30,7 @@
     margin-top: 15px;
     background: colors.$GRAYD;
     border-radius: 2px;
-    box-shadow: rgba(165, 203, 247, 30%) 0 0 0 2px;
+    box-shadow: 0 0 0 2px rgba(165, 203, 247, 30%);
     transition: 1s cubic-bezier(0.93, -0.26, 1, 1);
   }
 
@@ -43,7 +40,7 @@
     height: 2px;
     background: var(--color);
     border-radius: 2px;
-    box-shadow: rgba(165, 203, 247, 30%) 0 0 0 1.5px;
+    box-shadow: 0 0 0 1.5px rgba(165, 203, 247, 30%);
     transition: 1s cubic-bezier(0.93, -0.26, 1, 1);
 
     &::after {
