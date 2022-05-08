@@ -51,7 +51,7 @@ const useTodoList = () => {
     const elem = JSON.parse(JSON.stringify(todoList))
     const update = elem.map((el) => (el.id === id ? { ...el, title: inputValue } : el))
 
-    if (inputValue === '') {
+    if (inputValue.length <= 0) {
       Swal.fire({
         title: 'Not empty',
         text: '내용이 없으면 수정할 수 없습니다.',
