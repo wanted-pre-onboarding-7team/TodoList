@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { useRecoilState } from 'recoil'
 import { todoListState } from '../atom/Todolist'
 import uuid from 'react-uuid'
+import Swal from 'sweetalert2'
 
 const useTodoList = () => {
   const [todoList, setTodoList] = useRecoilState(todoListState)
@@ -72,15 +73,21 @@ const useTodoList = () => {
     const update = elem.map((el) => (el.id === id ? { ...el, title: inputValue } : el))
 
     if (inputValue.length <= 0) {
-      alert('빈 값은 입력할 수 없습니다.')
+      Swal.fire({
+        title: 'Not empty',
+        text: '내용이 없으면 수정할 수 없습니다.',
+        icon: 'warning',
+      })
     } else {
       setTodoList(update)
+
       localStorage.setItem('todoList', JSON.stringify(update))
 
       handleCloseModal()
+
+      setShowUpdateMsg(true)
+      timer()
     }
-    setShowUpdateMsg(true)
-    timer()
   }
 
   return {
