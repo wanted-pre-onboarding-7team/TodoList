@@ -26,6 +26,9 @@ const useDragDrop = () => {
   }
 
   const handleOnDrop = (e) => {
+    console.log('grap: ', grab.dataset.position)
+    console.log('targetPosition: ', e.currentTarget.dataset.position)
+
     const grabPosition = Number(grab.dataset.position)
     const targetPosition = Number(e.currentTarget.dataset.position)
     const list = [...todoList]
